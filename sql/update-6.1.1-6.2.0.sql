@@ -39,6 +39,14 @@ update BookmarksFolder set statusByUserId = userId;
 update BookmarksFolder set statusByUserName = userName;
 update BookmarksFolder set statusDate = modifiedDate;
 
+drop index IX_430D791F on BlogsEntry;
+drop index IX_EB2DCE27 on BlogsEntry;
+drop index IX_8CACE77B on BlogsEntry;
+drop index IX_72EF6041 on BlogsEntry;
+drop index IX_A5F57B61 on BlogsEntry;
+drop index IX_621E19D on BlogsEntry;
+drop index IX_FBDE0AA3 on BlogsEntry;
+
 alter table Contact_ add classNameId LONG;
 alter table Contact_ add classPK LONG;
 alter table Contact_ add emailAddress VARCHAR(75) null;
