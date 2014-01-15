@@ -19,7 +19,7 @@
 <%
 String strutsAction = ParamUtil.getString(request, "struts_action");
 
-String signInNotOnPage = ParamUtil.getString(request, "signInNotOnPage");
+String signInModal = ParamUtil.getString(request, "signInModal");
 
 boolean showForgotPasswordIcon = false;
 
@@ -31,7 +31,7 @@ if (!strutsAction.equals("/login/forgot_password") && (company.isSendPassword() 
 <c:if test="<%= showForgotPasswordIcon %>">
 	<portlet:renderURL var="forgotPasswordURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 		<portlet:param name="struts_action" value="/login/forgot_password" />
-		<portlet:param name="signInNotOnPage" value="<%= signInNotOnPage %>" />
+		<portlet:param name="signInModal" value="<%= signInModal %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon

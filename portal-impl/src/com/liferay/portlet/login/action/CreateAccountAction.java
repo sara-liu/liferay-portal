@@ -390,10 +390,10 @@ public class CreateAccountAction extends PortletAction {
 
 			loginURL.setParameter("login", login);
 
-			String signInNotOnPage = ParamUtil.getString(
-				actionRequest, "signInNotOnPage");
+			String signInModal = ParamUtil.getString(
+				actionRequest, "signInModal");
 
-			loginURL.setParameter("signInNotOnPage", signInNotOnPage);
+			loginURL.setParameter("signInModal", signInModal);
 
 			redirect = loginURL.toString();
 		}

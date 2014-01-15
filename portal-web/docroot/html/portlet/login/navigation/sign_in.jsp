@@ -19,7 +19,7 @@
 <%
 String strutsAction = ParamUtil.getString(request, "struts_action");
 
-String signInNotOnPage = ParamUtil.getString(request, "signInNotOnPage");
+String signInModal = ParamUtil.getString(request, "signInModal");
 
 boolean showSignInIcon = false;
 
@@ -37,8 +37,8 @@ if (Validator.isNotNull(strutsAction) && !strutsAction.equals("/login/login")) {
 		signInURL = HttpUtil.addParameter(signInURL, "windowState", LiferayWindowState.POP_UP.toString());
 	}
 
-	if (Validator.isNotNull(signInNotOnPage)) {
-		signInURL = HttpUtil.addParameter(signInURL, "signInNotOnPage", signInNotOnPage);
+	if (Validator.isNotNull(signInModal)) {
+		signInURL = HttpUtil.addParameter(signInURL, "signInModal", signInModal);
 	}
 	%>
 

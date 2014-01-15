@@ -282,13 +282,12 @@ public class ForgotPasswordAction extends PortletAction {
 
 		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
-		String signInNotOnPage = ParamUtil.getString(
-			actionRequest, "signInNotOnPage");
+		String signInModal = ParamUtil.getString(actionRequest, "signInModal");
 
-		if (Validator.isNotNull(signInNotOnPage)) {
+		if (Validator.isNotNull(signInModal)) {
 			redirect = HttpUtil.addParameter(
-				redirect, actionResponse.getNamespace() + "signInNotOnPage",
-				signInNotOnPage);
+				redirect, actionResponse.getNamespace() + "signInModal",
+				signInModal);
 		}
 
 		redirect = PortalUtil.escapeRedirect(redirect);

@@ -19,7 +19,7 @@
 <%
 String strutsAction = ParamUtil.getString(request, "struts_action");
 
-String signInNotOnPage = ParamUtil.getString(request, "signInNotOnPage");
+String signInModal = ParamUtil.getString(request, "signInModal");
 
 boolean showCreateAccountIcon = false;
 

@@ -19,7 +19,7 @@
 <%
 String strutsAction = ParamUtil.getString(request, "struts_action");
 
-String signInNotOnPage = ParamUtil.getString(request, "signInNotOnPage");
+String signInModal = ParamUtil.getString(request, "signInModal");
 
 boolean showAnonymousIcon = false;
 
@@ -31,7 +31,7 @@ if (!strutsAction.startsWith("/login/create_anonymous_account") && portletName.e
 <c:if test="<%= showAnonymousIcon %>">
 	<portlet:renderURL var="anonymousURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 		<portlet:param name="struts_action" value="/login/create_anonymous_account" />
-		<portlet:param name="signInNotOnPage" value="<%= signInNotOnPage %>" />
+		<portlet:param name="signInModal" value="<%= signInModal %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon

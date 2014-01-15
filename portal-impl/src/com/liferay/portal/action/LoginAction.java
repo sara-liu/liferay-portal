@@ -136,12 +136,11 @@ public class LoginAction extends Action {
 				request, PortletKeys.LOGIN, themeDisplay.getPlid(),
 				PortletRequest.RENDER_PHASE);
 
-			boolean signInNotOnPage = ParamUtil.getBoolean(
-				request, "signInNotOnPage");
+			boolean signInModal = ParamUtil.getBoolean(request, "signInModal");
 
-			if (signInNotOnPage) {
+			if (signInModal) {
 				portletURL.setParameter(
-					"signInNotOnPage", String.valueOf(signInNotOnPage));
+					"signInModal", String.valueOf(signInModal));
 			}
 
 			portletURL.setParameter("saveLastPath", Boolean.FALSE.toString());
