@@ -36,7 +36,7 @@ public class AssetTagsSearchFacet extends BaseSearchFacet {
 
 	@Override
 	public String getClassName() {
-		return MultiValueFacet.class.getName();
+		return AssetTagsSearchFacet.class.getName();
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class AssetTagsSearchFacet extends BaseSearchFacet {
 	public FacetConfiguration getDefaultConfiguration() {
 		FacetConfiguration facetConfiguration = new FacetConfiguration();
 
-		facetConfiguration.setClassName(getClassName());
+		facetConfiguration.setClassName(getFacetClassName());
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -73,6 +73,10 @@ public class AssetTagsSearchFacet extends BaseSearchFacet {
 		return "/facets/view/asset_tags.jsp";
 	}
 
+	public String getFacetClassName() {
+		return MultiValueFacet.class.getName();
+	}
+
 	@Override
 	public String getFieldName() {
 		return Field.ASSET_TAG_NAMES;
@@ -88,7 +92,7 @@ public class AssetTagsSearchFacet extends BaseSearchFacet {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		String displayStyle = ParamUtil.getString(
-			actionRequest, getClassName() + "displayStyle", "list");
+			actionRequest, getClassName() + "displayStyleFacet", "list");
 		int frequencyThreshold = ParamUtil.getInteger(
 			actionRequest, getClassName() + "frequencyThreshold", 1);
 		int maxTerms = ParamUtil.getInteger(
