@@ -14,14 +14,14 @@
 
 package com.liferay.portal.kernel.workflow.bundle.workflowhandlerregistryutil;
 
+import com.liferay.asset.kernel.model.AssetRenderer;
+import com.liferay.asset.kernel.model.AssetRendererFactory;
+import com.liferay.portal.kernel.model.WorkflowDefinitionLink;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.workflow.WorkflowHandler;
-import com.liferay.portal.model.WorkflowDefinitionLink;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.asset.model.AssetRenderer;
-import com.liferay.portlet.asset.model.AssetRendererFactory;
 
 import java.io.Serializable;
 
@@ -32,8 +32,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -48,12 +49,12 @@ import org.osgi.service.component.annotations.Reference;
 public class TestWorkflowHandler implements WorkflowHandler<Object> {
 
 	@Override
-	public AssetRenderer getAssetRenderer(long classPK) {
+	public AssetRenderer<Object> getAssetRenderer(long classPK) {
 		return null;
 	}
 
 	@Override
-	public AssetRendererFactory getAssetRendererFactory() {
+	public AssetRendererFactory<Object> getAssetRendererFactory() {
 		return null;
 	}
 
@@ -69,6 +70,10 @@ public class TestWorkflowHandler implements WorkflowHandler<Object> {
 		return null;
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	@Override
 	public String getIconPath(LiferayPortletRequest liferayPortletRequest) {
 		return null;
@@ -141,6 +146,14 @@ public class TestWorkflowHandler implements WorkflowHandler<Object> {
 	}
 
 	@Override
+	public boolean include(
+		long classPK, HttpServletRequest request, HttpServletResponse response,
+		String template) {
+
+		return false;
+	}
+
+	@Override
 	public boolean isAssetTypeSearchable() {
 		return false;
 	}
@@ -153,14 +166,6 @@ public class TestWorkflowHandler implements WorkflowHandler<Object> {
 	@Override
 	public boolean isVisible() {
 		return false;
-	}
-
-	@Override
-	public String render(
-		long classPK, RenderRequest renderRequest,
-		RenderResponse renderResponse, String template) {
-
-		return null;
 	}
 
 	@Override
@@ -179,7 +184,7 @@ public class TestWorkflowHandler implements WorkflowHandler<Object> {
 	}
 
 	@Reference(target = "(test=AtomicState)")
-	protected void getAtomicReference(AtomicReference<String> atomicReference) {
+	protected void setAtomicReference(AtomicReference<String> atomicReference) {
 		_atomicReference = atomicReference;
 	}
 

@@ -1,6 +1,8 @@
 <definition>
 	<command name="addConnection">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -8,6 +10,7 @@
 		</execute>
 
 		<execute macro="SOMembersPortlet#inviteMember">
+			<var name="siteRoleInvite" value="${siteRoleInvite}" />
 			<var name="userEmailAddress" value="${userEmailAddress}" />
 			<var name="userFirstName" value="${userFirstName}" />
 			<var name="userLastName" value="${userLastName}" />
@@ -22,6 +25,7 @@
 
 		<execute macro="SOMembersAdministration#confirmMemberInvite">
 			<var name="senderName" value="${adminName}" />
+			<var name="siteName" value="${siteName}" />
 		</execute>
 
 		<execute macro="User#logoutAndLoginPG">
@@ -30,6 +34,7 @@
 		</execute>
 
 		<execute macro="SOMembersPortlet#requestToConnect">
+			<var name="siteName" value="${siteName}" />
 			<var name="userEmailAddress" value="${userEmailAddress}" />
 			<var name="userListName" value="${userListName}" />
 			<var name="userName" value="${userName}" />
@@ -43,12 +48,15 @@
 
 		<execute macro="SOMembersPortlet#confirmRequestToConnect">
 			<var name="senderName" value="${adminName}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${userName}" />
 		</execute>
 	</command>
 
 	<command name="blockMember">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -79,7 +87,9 @@
 		<execute function="Click" locator1="SOUserBar#NOTIFICATION_MENU_REQUEST_CONFIRM" />
 		<execute function="AssertTextEquals" locator1="SOUserBar#NOTIFICATION_MENU_COUNT" value1="0" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -90,7 +100,9 @@
 	</command>
 
 	<command name="disconnectFromConnection">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -110,7 +122,9 @@
 	</command>
 
 	<command name="followMember">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -183,7 +197,9 @@
 	</command>
 
 	<command name="requestToConnect">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -231,7 +247,9 @@
 	</command>
 
 	<command name="unblockMember">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -252,7 +270,9 @@
 	</command>
 
 	<command name="unfollowMember">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Members" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />

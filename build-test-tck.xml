@@ -114,6 +114,7 @@ work.dir=${basedir.unix}/tools/tck/work</echo>
 					<path>
 						<fileset
 							dir="tools/tck/dist/@{test.directory}"
+							excludes="**/portlet_jp_PortletSession_secondapp_web.war"
 							includes="**/*.war"
 						/>
 					</path>
@@ -150,13 +151,13 @@ work.dir=${basedir.unix}/tools/tck/work</echo>
 		<echo file="${liferay.home}/osgi/modules/com.liferay.portlet.tck.bridge.configuration.PortletTCKBridgeConfiguration.cfg">handShakeServerPort=${portlet.tck.bridge.handshake.port}
 servletContextNames=${tck.servlet.context.names}</echo>
 
-		<ant dir="modules/test/portlet-tck-bridge" target="deploy" />
+		<gradle-execute dir="modules/test/portlet-tck-bridge" task="deploy" />
 	</target>
 
 	<target name="record-test-tck-package-names">
 		<ant antfile="build-test-tck.xml" target="prepare-tck" />
 
-		<script classpathref="project.classpath" language="beanshell">
+		<beanshell>
 			<![CDATA[
 				import org.apache.tools.ant.DirectoryScanner;
 
@@ -246,7 +247,7 @@ servletContextNames=${tck.servlet.context.names}</echo>
 
 				project.setProperty("test.tck.package.names", sb.toString());
 			]]>
-		</script>
+		</beanshell>
 
 		<echo file="test.tck.package.names.properties">${test.tck.package.names}</echo>
 	</target>
@@ -267,7 +268,9 @@ servletContextNames=${tck.servlet.context.names}</echo>
 			</then>
 		</if>
 
-		<antcall target="start-app-server" />
+		<antcall target="start-app-server">
+			<param name="testable.portal.started.marker.file" value=".testable.portal.started" />
+		</antcall>
 
 		<waitfor checkevery="100" checkeveryunit="millisecond" maxwait="10" maxwaitunit="minute" timeoutproperty="tck.wars.deployment.timeout">
 			<socket server="localhost" port="${portlet.tck.bridge.handshake.port}" />
@@ -301,8 +304,9 @@ ${logfile.content}</echo>
 
 		<for list="${test.directories}" param="test.directory">
 			<sequential>
-				<exec dir="tools/tck/src/@{test.directory}" executable="${basedir}/tools/tck/bin/tsant${tsant.file.suffix.bat}">
+				<exec dir="tools/tck/src/@{test.directory}" executable="${basedir}/tools/tck/bin/tsant${tsant.file.suffix.bat}" failonerror="true">
 					<arg line="runclient" />
+					<env key="ANT_OPTS" value="-verbose:gc -Xloggc:/tmp/tsant-gc.log -Xms8m -Xmx8m -XX:MaxNewSize=2m -XX:MaxPermSize=6m -XX:MaxTenuringThreshold=0 -XX:NewSize=2m -XX:PermSize=6m -XX:+PrintGCCause -XX:+PrintGCDetails -XX:SurvivorRatio=65536 -XX:TargetSurvivorRatio=0" />
 					<env key="TS_HOME" value="${basedir}/tools/tck" />
 				</exec>
 

@@ -16,7 +16,7 @@ package com.liferay.portlet.documentlibrary;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
-import com.liferay.portal.kernel.settings.GroupServiceSettings;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portlet.documentlibrary.util.DLConstants;
+import com.liferay.portlet.documentlibrary.constants.DLConstants;
 
 import java.util.Map;
 
@@ -32,13 +32,13 @@ import java.util.Map;
  * @author Adolfo Pérez
  */
 @Settings.Config(settingsIds = DLConstants.SERVICE_NAME)
-public class DLGroupServiceSettings implements GroupServiceSettings {
+public class DLGroupServiceSettings {
 
 	public static DLGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, DLConstants.SERVICE_NAME);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new GroupServiceSettingsLocator(groupId, DLConstants.SERVICE_NAME));
 
 		return new DLGroupServiceSettings(settings);
 	}
@@ -47,13 +47,18 @@ public class DLGroupServiceSettings implements GroupServiceSettings {
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, DLConstants.SERVICE_NAME);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new GroupServiceSettingsLocator(groupId, DLConstants.SERVICE_NAME));
 
 		Settings parameterMapSettings = new ParameterMapSettings(
 			parameterMap, settings);
 
 		return new DLGroupServiceSettings(parameterMapSettings);
+	}
+
+	public static void registerSettingsMetadata() {
+		SettingsFactoryUtil.registerSettingsMetadata(
+			DLGroupServiceSettings.class, null, _getFallbackKeys());
 	}
 
 	public DLGroupServiceSettings(Settings settings) {

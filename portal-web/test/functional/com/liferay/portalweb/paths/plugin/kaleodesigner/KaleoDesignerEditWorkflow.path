@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>KaleoDesignerEditWorkflow</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>IFRAME</td>
 	<td>//iframe[@class='dialog-iframe-node ']</td>
 	<td></td>
@@ -108,7 +98,7 @@
 </tr>
 <tr>
 	<td>SETTINGS_SCRIPT</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Script')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Script')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -118,22 +108,22 @@
 </tr>
 <tr>
 	<td>SETTINGS_SCRIPT_LANGUAGE</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Script Language')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Script Language')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SETTINGS_ACTIONS</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Actions')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Actions')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SETTINGS_NOTIFICATIONS</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Notifications')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Notifications')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SETTINGS_DESCRIPTION</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Description')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Description')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -143,7 +133,7 @@
 </tr>
 <tr>
 	<td>SETTINGS_NAME</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Name')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Name')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -153,12 +143,12 @@
 </tr>
 <tr>
 	<td>SETTINGS_TYPE</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Type')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Type')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SETTINGS_ASSIGNMENTS</td>
-	<td>//td[contains(@class,'table-col-name') and contains(.,'Assignments')]/following-sibling::td[contains(@class,'table-col-value')]</td>
+	<td>//td[contains(@class,'table-col-name') and contains(.,'Assignments')]//following-sibling::td[contains(@class,'table-col-value')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -376,11 +366,6 @@
 <tr>
 	<td>SOURCE_KALEO_XML_CONTENT_SPECIFIC_LINE_CONTENT</td>
 	<td>xpath=(//div[contains(@id,'portlet_editorWrapper')]//div[contains(@class,'ace_text')]/div[@class='ace_line_group'])[${key_line}]</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
 	<td></td>
 </tr>
 </tbody>

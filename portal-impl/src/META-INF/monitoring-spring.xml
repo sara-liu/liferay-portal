@@ -13,37 +13,4 @@
 		<property name="parentChainableMethodAdvice" ref="serviceAdvice" />
 	</bean>
 	<bean id="serviceMonitorAdvice" class="com.liferay.portal.monitoring.statistics.service.ServiceMonitorAdvice" />
-
-	<!-- Messaging -->
-
-	<bean id="destination.monitoring" class="com.liferay.portal.kernel.messaging.ParallelDestination">
-		<property name="name" value="liferay/monitoring" />
-	</bean>
-	<bean id="messageListener.monitoring" class="com.liferay.portal.kernel.monitoring.messaging.MonitoringMessageListener" />
-	<bean id="messagingConfigurator.monitoring" class="com.liferay.portal.kernel.messaging.config.DefaultMessagingConfigurator">
-		<property name="destinations">
-			<list>
-				<ref bean="destination.monitoring" />
-			</list>
-		</property>
-		<property name="messageBus">
-			<ref bean="com.liferay.portal.kernel.messaging.MessageBus" />
-		</property>
-		<property name="messageListeners">
-			<map key-type="java.lang.String" value-type="java.util.List">
-				<entry key="liferay/monitoring">
-					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
-						<ref bean="messageListener.monitoring" />
-					</list>
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<!-- Portlet container -->
-
-	<bean id="com.liferay.portal.kernel.monitoring.PortletMonitoringControl" class="com.liferay.portal.kernel.monitoring.DefaultPortletMonitoringControl" />
-	<bean id="com.liferay.portlet.InvokerPortletFactory" class="com.liferay.portlet.MonitoringPortletFactoryImpl">
-		<property name="portletMonitoringControl" ref="com.liferay.portal.kernel.monitoring.PortletMonitoringControl" />
-	</bean>
 </beans>

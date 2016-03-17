@@ -9,18 +9,8 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>WorkflowUpload</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>FILE_UPLOAD</td>
-	<td>//input[contains(@id,'file')]</td>
+	<td>//input[@type='file']</td>
 	<td></td>
 </tr>
 </tbody>

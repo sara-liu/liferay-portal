@@ -1,7 +1,7 @@
 <definition component-name="social-office-collaboration">
 	<property name="hook.plugins.includes" value="deploy-listener-hook,portal-compat-hook,so-activities-hook,so-hook" />
 	<property name="portlet.plugins.includes" value="calendar-portlet,chat-portlet,contacts-portlet,events-display-portlet,marketplace-portlet,microblogs-portlet,notifications-portlet,private-messaging-portlet,so-announcements-portlet,so-configurations-portlet,so-portlet,tasks-portlet,wysiwyg-portlet" />
-	<property name="testray.main.component.name" value="Social Office" />
+	<property name="testray.main.component.name" value="Social Office EE" />
 	<property name="theme.plugins.includes" value="so-theme" />
 	<property name="web.plugins.includes" value="resources-importer-web" />
 
@@ -29,7 +29,7 @@
 		<var name="pageName" value="Tasks" />
 		<var name="taskDescription" value="Task Description" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -40,7 +40,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -60,7 +60,7 @@
 		<var name="pageName" value="Tasks" />
 		<var name="taskDescription" value="Task Description" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -71,7 +71,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -90,7 +90,7 @@
 		</execute>
 	</command>
 
-	<command name="ViewTaskAssignedToConnection" priority="5">
+	<command name="ViewTaskAssignedToConnection" priority="4">
 		<var name="pageName" value="Tasks" />
 		<var name="taskDescription" value="Task Description" />
 		<var name="userEmailAddress" value="socialoffice01@liferay.com" />
@@ -103,6 +103,7 @@
 
 		<execute macro="SOContactsCenter#addConnection">
 			<var name="adminEmailAddress" value="${adminEmailAddress}" />
+			<var name="adminName" value="${adminName}" />
 			<var name="senderName" value="${adminName}" />
 			<var name="userEmailAddress" value="${userEmailAddress}" />
 			<var name="userFirstName" value="${userFirstName}" />
@@ -118,7 +119,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -147,11 +148,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewTaskAssignedToMe" priority="5">
+	<command name="ViewTaskAssignedToMe" priority="4">
 		<var name="pageName" value="Tasks" />
 		<var name="taskDescription" value="Task Description" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -174,7 +175,7 @@
 		<var name="taskDescription" value="Task Description" />
 		<var name="taskPriority" value="High" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -183,7 +184,7 @@
 			<var name="taskAssignee" value="${adminName}" />
 			<var name="taskDescription" value="${taskDescription}" />
 			<var name="taskPriority" value="${taskPriority}" />
-			<var name="taskReporter" value="${adminName}" />" />
+			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
 		<execute macro="SOUpcomingTasks#viewUpcomingTask">
@@ -199,7 +200,7 @@
 		<var name="taskDescription" value="Task Description" />
 		<var name="taskPriority" value="Low" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -208,18 +209,18 @@
 			<var name="taskAssignee" value="${adminName}" />
 			<var name="taskDescription" value="${taskDescription}" />
 			<var name="taskPriority" value="${taskPriority}" />
-			<var name="taskReporter" value="${adminName}" />" />
+			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
 		<execute macro="SOUpcomingTasks#viewUpcomingTask">
 			<var name="taskAssignee" value="${adminName}" />
 			<var name="taskDescription" value="${taskDescription}" />
 			<var name="taskPriority" value="${taskPriority}" />
-			<var name="taskReporter" value="${adminName}" />" />
+			<var name="taskReporter" value="${adminName}" />
 		</execute>
 	</command>
 
-	<command name="ViewTaskReassignedToConnection" priority="5">
+	<command name="ViewTaskReassignedToConnection" priority="4">
 		<var name="pageName" value="Tasks" />
 		<var name="taskDescription" value="Task Description" />
 		<var name="userEmailAddress" value="socialoffice01@liferay.com" />
@@ -232,6 +233,7 @@
 
 		<execute macro="SOContactsCenter#addConnection">
 			<var name="adminEmailAddress" value="${adminEmailAddress}" />
+			<var name="adminName" value="${adminName}" />
 			<var name="senderName" value="${adminName}" />
 			<var name="userEmailAddress" value="${userEmailAddress}" />
 			<var name="userFirstName" value="${userFirstName}" />
@@ -247,7 +249,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -259,7 +261,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -272,7 +274,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -280,9 +282,10 @@
 
 		<execute macro="SOTasks#editTask">
 			<var name="taskAssigneeEdit" value="${userName}" />
+			<var name="taskDescription" value="${taskDescription}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -314,7 +317,7 @@
 		<var name="taskDescription2" value="Task2 Description" />
 		<var name="taskDescription3" value="Task3 Description" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -325,7 +328,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -336,7 +339,7 @@
 			<var name="taskReporter" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="${pageName}" />
 			<var name="soDashboard" value="true" />
 		</execute>

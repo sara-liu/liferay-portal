@@ -27,11 +27,11 @@
 				<var name="key_textFormat" value="${textFormat}" />
 
 				<execute function="Click" locator1="SOAnnouncementsAdd#TEXT_FORMAT_BUTTON" />
-				<execute function="SelectFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" />
+				<execute function="SelectFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD_IFRAME" />
 				<execute function="Type#sendKeys" locator1="SOAnnouncementsAdd#CONTENT_FIELD_FORMATTED_TEXT" value1="${entryContent}" />
 			</then>
 			<else>
-				<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
+				<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
 			</else>
 		</if>
 
@@ -85,7 +85,7 @@
 		<execute function="AssertClick" locator1="SOAnnouncementsManage#ADD_ENTRY_BUTTON" value1="Add Entry"  />
 
 		<execute function="Type" locator1="SOAnnouncementsAdd#TITLE_FIELD" value1="${entryTitle}" />
-		<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
+		<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
 		<execute function="SelectFrameTop" />
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#URL_FIELD" value1="${entryURL}" />
@@ -113,8 +113,8 @@
 		<if>
 			<condition function="IsElementPresent" locator1="SOUserBar#EDIT_CONTROLS_NOT_FLAGGED" />
 			<then>
-				<execute function="MouseOver" locator1="Dockbar#EDIT_CONTROLS" />
-				<execute function="Click" locator1="Dockbar#EDIT_CONTROLS" />
+				<execute function="MouseOver" locator1="Icon#EDIT_CONTROLS" />
+				<execute function="Click" locator1="Icon#EDIT_CONTROLS" />
 			</then>
 		</if>
 
@@ -140,8 +140,8 @@
 		<if>
 			<condition function="IsElementPresent" locator1="SOUserBar#EDIT_CONTROLS_NOT_FLAGGED" />
 			<then>
-				<execute function="MouseOver" locator1="Dockbar#EDIT_CONTROLS" />
-				<execute function="Click" locator1="Dockbar#EDIT_CONTROLS" />
+				<execute function="MouseOver" locator1="Icon#EDIT_CONTROLS" />
+				<execute function="Click" locator1="Icon#EDIT_CONTROLS" />
 			</then>
 		</if>
 
@@ -246,7 +246,7 @@
 
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#TITLE_FIELD" value1="${entryTitleEdit}" />
-		<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
+		<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
 		<execute function="SelectFrameTop" />
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#URL_FIELD" value1="${entryURL}" />
@@ -268,7 +268,7 @@
 		<execute function="AssertClick" locator1="SOAnnouncementsManage#ANNOUNCEMENTS_ENTRY_EDIT_LINK" value1="Edit"  />
 
 		<execute function="Type" locator1="SOAnnouncementsAdd#TITLE_FIELD" value1="${entryTitleEdit}" />
-		<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
+		<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
 		<execute function="SelectFrameTop" />
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#URL_FIELD" value1="${entryURL}" />
@@ -337,7 +337,7 @@
 
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#TITLE_FIELD" value1="${entryTitleEdit}" />
-		<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
+		<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContentEdit}" />
 		<execute function="SelectFrameTop" />
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#URL_FIELD" value1="${entryURL}" />
@@ -354,7 +354,7 @@
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Select" locator1="SOAnnouncementsAdd#DISTRIBUTION_SCOPE_SELECT" value1="${distributionScope}" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#TITLE_FIELD" value1="${entryTitle}" />
-		<execute function="Type#typeFrame" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
+		<execute function="Type#typeCKEditor" locator1="SOAnnouncementsAdd#CONTENT_FIELD" value1="${entryContent}" />
 		<execute function="SelectFrameTop" />
 		<execute function="SelectFrame" locator1="SOAnnouncementsAdd#ADD_ENTRY_IFRAME" />
 		<execute function="Type" locator1="SOAnnouncementsAdd#URL_FIELD" value1="${entryURL}" />
@@ -369,9 +369,10 @@
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_DAY" name="expirationDateDay" />
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_MONTH" name="expirationDateMonth" />
-		<var name="expirationDateMonth" value="${expirationDateMonth?increment()}" />
+		<var method="MathUtil#sum('${expirationDateMonth}', '1')" name="expirationDateMonth" />
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_YEAR" name="expirationDateYear" />
+
 		<var name="expirationDate" value="${expirationDateMonth}/${expirationDateDay}/${expirationDateYear}" />
 
 		<execute function="Type" locator1="SOAnnouncementsAdd#EXPIRATION_DATE_DATE_INPUT" value1="${expirationDate}" />
@@ -390,8 +391,7 @@
 		</if>
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_MINUTE" name="expirationDateMinute" />
-		<var name="expirationDateMinuteFuture" value="${expirationDateMinute?increment()}" />
-		<var name="expirationDateMinuteFuture" value="${expirationDateMinuteFuture?increment()}" />
+		<var method="MathUtil#sum('${expirationDateMinute}', '2')" name="expirationDateMinuteFuture" />
 		<var name="expirationDateMinuteFutureLength" value="${expirationDateMinuteFuture?length()}" />
 
 		<if>
@@ -405,8 +405,8 @@
 		</if>
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_MERIDIAN" name="expirationDateMeridian" />
-		<var name="expirationDateMeridian" value="${expirationDateMeridian?replace('0', 'AM')}" />
-		<var name="expirationDateMeridian" value="${expirationDateMeridian?replace('1', 'PM')}" />
+		<var method="StringUtil#replace('${expirationDateMeridian}', '0', 'AM')" name="expirationDateMeridian" />
+		<var method="StringUtil#replace('${expirationDateMeridian}', '1', 'PM')" name="expirationDateMeridian" />
 		<var name="expirationTime" value="${expirationDateHour}:${expirationDateMinuteFuture} ${expirationDateMeridian}" />
 
 		<execute function="Type" locator1="SOAnnouncementsAdd#EXPIRATION_DATE_TIME_INPUT" value1="${expirationTime}" />
@@ -426,8 +426,7 @@
 		</if>
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_MINUTE" name="displayDateMinute" />
-		<var name="displayDateMinuteFuture" value="${displayDateMinute?increment()}" />
-		<var name="displayDateMinuteFuture" value="${displayDateMinuteFuture?increment()}" />
+		<var method="MathUtil#sum('${displayDateMinute}', '2')" name="displayDateMinuteFuture" />
 		<var name="displayDateMinuteFutureLength" value="${displayDateMinuteFuture?length()}" />
 
 		<if>
@@ -438,8 +437,8 @@
 		</if>
 
 		<var locator="SOAnnouncementsAdd#DISPLAY_DATE_DATE_MERIDIAN" name="displayDateMeridian" />
-		<var name="displayDateMeridian" value="${displayDateMeridian?replace('0', 'AM')}" />
-		<var name="displayDateMeridian" value="${displayDateMeridian?replace('1', 'PM')}" />
+		<var method="StringUtil#replace('${displayDateMeridian}', '0', 'AM')" name="displayDateMeridian" />
+		<var method="StringUtil#replace('${displayDateMeridian}', '1', 'PM')" name="displayDateMeridian" />
 
 		<var name="displayDate" value="${displayDateHour}:${displayDateMinuteFuture} ${displayDateMeridian}" />
 
@@ -461,8 +460,8 @@
 		<if>
 			<condition function="IsElementPresent" locator1="SOUserBar#EDIT_CONTROLS_NOT_FLAGGED" />
 			<then>
-				<execute function="MouseOver" locator1="Dockbar#EDIT_CONTROLS" />
-				<execute function="Click" locator1="Dockbar#EDIT_CONTROLS" />
+				<execute function="MouseOver" locator1="Icon#EDIT_CONTROLS" />
+				<execute function="Click" locator1="Icon#EDIT_CONTROLS" />
 			</then>
 		</if>
 
@@ -612,7 +611,7 @@
 				<execute function="AssertClick" locator1="SOAnnouncements#ANNOUNCEMENTS_ENTRY_TITLE_LINK" value1="${entryTitle}" />
 				<execute function="AssertElementPresent" locator1="SOAnnouncements#ANNOUNCEMENTS_ENTRY_IMAGE_GOOGLE" />
 
-				<execute macro="Page#openURL" />
+				<execute macro="Navigator#openURL" />
 
 				<execute macro="SOUserBar#gotoDashboardPG" />
 			</then>

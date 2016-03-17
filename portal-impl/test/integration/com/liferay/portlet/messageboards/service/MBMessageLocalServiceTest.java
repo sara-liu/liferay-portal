@@ -14,7 +14,18 @@
 
 package com.liferay.portlet.messageboards.service;
 
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
+import com.liferay.message.boards.kernel.model.MBCategoryConstants;
+import com.liferay.message.boards.kernel.model.MBMessage;
+import com.liferay.message.boards.kernel.model.MBMessageConstants;
+import com.liferay.message.boards.kernel.model.MBThread;
+import com.liferay.message.boards.kernel.service.MBMessageLocalServiceUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.kernel.repository.capabilities.WorkflowCapability;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -26,22 +37,12 @@ import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
-import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.portlet.asset.model.AssetEntry;
-import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.messageboards.model.MBCategoryConstants;
-import com.liferay.portlet.messageboards.model.MBMessage;
-import com.liferay.portlet.messageboards.model.MBMessageConstants;
-import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.messageboards.util.test.MBTestUtil;
-import com.liferay.portlet.trash.util.TrashUtil;
+import com.liferay.trash.kernel.util.TrashUtil;
 
+import java.io.File;
 import java.io.InputStream;
 
 import java.text.DateFormat;
@@ -65,12 +66,22 @@ public class MBMessageLocalServiceTest {
 	@ClassRule
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
-		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE);
+		new LiferayIntegrationTestRule();
 
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
+	}
+
+	@Test
+	public void testAddMessageAttachment() throws Exception {
+		MBMessage message = addMessage(null, false);
+
+		MBMessageLocalServiceUtil.addMessageAttachment(
+			TestPropsValues.getUserId(), message.getMessageId(), "test",
+			_attachmentFile, "image/png");
+
+		Assert.assertEquals(1, message.getAttachmentsFileEntriesCount());
 	}
 
 	@Test
@@ -121,10 +132,28 @@ public class MBMessageLocalServiceTest {
 
 		FileEntry fileEntry = fileEntries.get(0);
 
-		DLFileEntry dlFileEntry = ((DLFileEntry)fileEntry.getModel());
+		WorkflowCapability workflowCapability =
+			fileEntry.getRepositoryCapability(WorkflowCapability.class);
 
 		Assert.assertEquals(
-			WorkflowConstants.STATUS_IN_TRASH, dlFileEntry.getStatus());
+			WorkflowConstants.STATUS_IN_TRASH,
+			workflowCapability.getStatus(fileEntry));
+	}
+
+	@Test
+	public void testDeleteMessageAttachment() throws Exception {
+		MBMessage message = addMessage(null, false);
+
+		MBMessageLocalServiceUtil.addMessageAttachment(
+			TestPropsValues.getUserId(), message.getMessageId(), "test",
+			_attachmentFile, "image/png");
+
+		Assert.assertEquals(1, message.getAttachmentsFileEntriesCount());
+
+		MBMessageLocalServiceUtil.deleteMessageAttachment(
+			message.getMessageId(), "test");
+
+		Assert.assertEquals(0, message.getAttachmentsFileEntriesCount());
 	}
 
 	@Test
@@ -221,6 +250,10 @@ public class MBMessageLocalServiceTest {
 			MBMessageConstants.DEFAULT_FORMAT, inputStreamOVPs, false, 0.0,
 			false, serviceContext);
 	}
+
+	private static final File _attachmentFile = new File(
+		"portal-impl/test/integration/com/liferay/portlet/messageboards" +
+			"/attachments/dependencies/company_logo.png");
 
 	@DeleteAfterTestRun
 	private Group _group;

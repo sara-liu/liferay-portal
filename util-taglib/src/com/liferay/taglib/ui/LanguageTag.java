@@ -15,24 +15,31 @@
 package com.liferay.taglib.ui;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portletdisplaytemplate.PortletDisplayTemplateManagerUtil;
 import com.liferay.portal.kernel.servlet.taglib.ui.LanguageEntry;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.portletdisplaytemplate.util.PortletDisplayTemplate;
+import com.liferay.taglib.aui.AUIUtil;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,6 +80,10 @@ public class LanguageTag extends IncludeTag {
 		_name = name;
 	}
 
+	public void setUseNamespace(boolean useNamespace) {
+		_useNamespace = useNamespace;
+	}
+
 	@Override
 	protected void cleanUp() {
 		_ddmTemplateGroupId = 0;
@@ -83,15 +94,27 @@ public class LanguageTag extends IncludeTag {
 		_languageId = null;
 		_languageIds = null;
 		_name = "languageId";
+		_useNamespace = true;
 	}
 
 	protected String getDisplayStyle() {
 		if (Validator.isNotNull(_ddmTemplateKey)) {
-			return PortletDisplayTemplate.DISPLAY_STYLE_PREFIX +
-				_ddmTemplateKey;
+			return PortletDisplayTemplateManagerUtil.getDisplayStyle(
+				_ddmTemplateKey);
 		}
 
 		return null;
+	}
+
+	protected long getDisplayStyleGroupId() {
+		if (_ddmTemplateGroupId > 0) {
+			return _ddmTemplateGroupId;
+		}
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		return themeDisplay.getScopeGroupId();
 	}
 
 	protected String getFormAction() {
@@ -105,8 +128,8 @@ public class LanguageTag extends IncludeTag {
 			WebKeys.THEME_DISPLAY);
 
 		formAction =
-			themeDisplay.getPathMain() +
-				"/portal/update_language?p_l_id=" + themeDisplay.getPlid();
+			themeDisplay.getPathMain() + "/portal/update_language?p_l_id=" +
+				themeDisplay.getPlid();
 		formAction = HttpUtil.setParameter(
 			formAction, "redirect", PortalUtil.getCurrentURL(request));
 
@@ -114,8 +137,8 @@ public class LanguageTag extends IncludeTag {
 	}
 
 	protected List<LanguageEntry> getLanguageEntries(
-		Locale[] locales, boolean displayCurrentLocale, String formAction,
-		String parameterName) {
+		Collection<Locale> locales, boolean displayCurrentLocale,
+		String formAction, String parameterName) {
 
 		List<LanguageEntry> languageEntries = new ArrayList<>();
 
@@ -125,10 +148,10 @@ public class LanguageTag extends IncludeTag {
 			Integer count = counts.get(locale.getLanguage());
 
 			if (count == null) {
-				count = new Integer(1);
+				count = Integer.valueOf(1);
 			}
 			else {
-				count = new Integer(count.intValue() + 1);
+				count = Integer.valueOf(count.intValue() + 1);
 			}
 
 			counts.put(locale.getLanguage(), count);
@@ -144,37 +167,70 @@ public class LanguageTag extends IncludeTag {
 			}
 		}
 
-		for (Locale locale : locales) {
-			String url = null;
+		Locale currentLocale = null;
 
+		if (Validator.isNotNull(_languageId)) {
+			currentLocale = LocaleUtil.fromLanguageId(_languageId);
+		}
+		else {
 			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-			if (!LocaleUtil.equals(locale, themeDisplay.getLocale())) {
-				url = HttpUtil.addParameter(
+			currentLocale = themeDisplay.getLocale();
+		}
+
+		for (Locale locale : locales) {
+			boolean disabled = false;
+			String url = null;
+
+			if (!LocaleUtil.equals(locale, currentLocale)) {
+				url = HttpUtil.setParameter(
 					formAction, parameterName, LocaleUtil.toLanguageId(locale));
 			}
 			else if (!displayCurrentLocale) {
-				continue;
+				disabled = true;
 			}
 
-			languageEntries.add(
-				new LanguageEntry(
-					duplicateLanguages, themeDisplay.getLocale(), locale, url));
+			LanguageEntry languageEntry = new LanguageEntry(
+				duplicateLanguages, currentLocale, locale, url, disabled);
+
+			languageEntries.add(languageEntry);
 		}
 
 		return languageEntries;
 	}
 
-	protected Locale[] getLocales() {
+	protected Collection<Locale> getLocales() {
 		if (ArrayUtil.isNotEmpty(_languageIds)) {
-			return LocaleUtil.fromLanguageIds(_languageIds);
+			return Arrays.asList(LocaleUtil.fromLanguageIds(_languageIds));
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		return LanguageUtil.getAvailableLocales(themeDisplay.getSiteGroupId());
+	}
+
+	protected String getNamespacedName() {
+		String name = _name;
+
+		if (!_useNamespace) {
+			return name;
+		}
+
+		PortletRequest portletRequest = (PortletRequest)request.getAttribute(
+			JavaConstants.JAVAX_PORTLET_REQUEST);
+		PortletResponse portletResponse = (PortletResponse)request.getAttribute(
+			JavaConstants.JAVAX_PORTLET_RESPONSE);
+
+		String namespace = AUIUtil.getNamespace(
+			portletRequest, portletResponse);
+
+		if (Validator.isNotNull(namespace)) {
+			name = namespace.concat(name);
+		}
+
+		return name;
 	}
 
 	@Override
@@ -190,15 +246,16 @@ public class LanguageTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-ui:language:displayStyle", getDisplayStyle());
 		request.setAttribute(
-			"liferay-ui:language:displayStyleGroupId", _ddmTemplateGroupId);
+			"liferay-ui:language:displayStyleGroupId",
+			getDisplayStyleGroupId());
 		request.setAttribute("liferay-ui:language:formAction", getFormAction());
 		request.setAttribute("liferay-ui:language:formName", _formName);
 		request.setAttribute(
 			"liferay-ui:language:languageEntries",
 			getLanguageEntries(
-				getLocales(), _displayCurrentLocale, getFormAction(), _name));
+				getLocales(), _displayCurrentLocale, getFormAction(),
+				getNamespacedName()));
 		request.setAttribute("liferay-ui:language:languageId", _languageId);
-		request.setAttribute("liferay-ui:language:locales", getLocales());
 		request.setAttribute("liferay-ui:language:name", _name);
 	}
 
@@ -212,5 +269,6 @@ public class LanguageTag extends IncludeTag {
 	private String _languageId;
 	private String[] _languageIds;
 	private String _name = "languageId";
+	private boolean _useNamespace = true;
 
 }

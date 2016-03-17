@@ -11,6 +11,7 @@
 		<execute function="SelectFrameTop" />
 
 		<execute macro="SOMicroblogs#selectViewableByCmd">
+			<var name="editInDashboard" value="${editInDashboard}" />
 			<var name="microblogsEntryViewableBy" value="${microblogsEntryViewableBy}" />
 		</execute>
 
@@ -53,7 +54,11 @@
 				<execute function="Type#sendKeys" locator1="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" value1="${microblogsEntryCommentContent}" />
 
 				<execute macro="SOMicroblogs#viewCharacterCountdownCmd">
+					<var name="characterCountdown" value="${characterCountdown}" />
 					<var name="commentInDashboard" value="true" />
+					<var name="editInDashboard" value="${editInDashboard}" />
+					<var name="textFieldContent?length()" value="${textFieldContent?length()}" />
+					<var name="textFieldContentLength" value="${textFieldContentLength}" />
 				</execute>
 
 				<execute function="Click" locator1="SOMicroblogs#MICROBLOGS_ENTRY_COMMENT_POST_BUTTON" />
@@ -101,7 +106,11 @@
 				<execute function="Type#sendKeys" locator1="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" value1="${microblogsEntryCommentContent} @${mentionUserFirstName}" />
 
 				<execute macro="SOMicroblogs#viewCharacterCountdownCmd">
+					<var name="characterCountdown" value="${characterCountdown}" />
 					<var name="commentInDashboard" value="true" />
+					<var name="editInDashboard" value="${editInDashboard}" />
+					<var name="textFieldContent?length()" value="${textFieldContent?length()}" />
+					<var name="textFieldContentLength" value="${textFieldContentLength}" />
 				</execute>
 
 				<execute function="AssertTextEquals" locator1="SOMicroblogs#MICROBLOGS_CONTENT_AUTOCOMPLETE_USERNAME" value1="${mentionUserName}" />
@@ -133,7 +142,9 @@
 	</command>
 
 	<command name="addMicroblogsEntryCommentViaProfile">
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Contacts Center" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -183,7 +194,9 @@
 		<execute function="Click" locator1="SOMicroblogs#POST_BUTTON" />
 		<execute function="Pause" value1="1000" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Microblogs" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -204,6 +217,7 @@
 		<execute function="SelectFrameTop" />
 
 		<execute macro="SOMicroblogs#selectViewableByCmd">
+			<var name="editInDashboard" value="${editInDashboard}" />
 			<var name="microblogsEntryViewableBy" value="${microblogsEntryViewableBy}" />
 		</execute>
 
@@ -235,6 +249,7 @@
 		<execute function="SelectFrameTop" />
 
 		<execute macro="SOMicroblogs#selectViewableByCmd">
+			<var name="editInDashboard" value="${editInDashboard}" />
 			<var name="microblogsEntryViewableBy" value="${microblogsEntryViewableBy}" />
 		</execute>
 
@@ -268,7 +283,10 @@
 		<execute function="Type#sendKeys" locator1="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" value1="${microblogsEntryContentEdit}" />
 
 		<execute macro="SOMicroblogs#viewCharacterCountdownCmd">
+			<var name="characterCountdown" value="${characterCountdown}" />
 			<var name="editInDashboard" value="true" />
+			<var name="textFieldContent?length()" value="${textFieldContent?length()}" />
+			<var name="textFieldContentLength" value="${textFieldContentLength}" />
 		</execute>
 
 		<execute function="Click" locator1="SOMicroblogs#MICROBLOGS_ENTRY_CONTENT_EDIT_POST_BUTTON" />
@@ -296,7 +314,10 @@
 		<execute function="Type#sendKeys" locator1="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" value1="${microblogsEntryContentEdit} @${mentionUserFirstName}" />
 
 		<execute macro="SOMicroblogs#viewCharacterCountdownCmd">
+			<var name="characterCountdown" value="${characterCountdown}" />
 			<var name="editInDashboard" value="true" />
+			<var name="textFieldContent?length()" value="${textFieldContent?length()}" />
+			<var name="textFieldContentLength" value="${textFieldContentLength}" />
 		</execute>
 
 		<execute function="AssertTextEquals" locator1="SOMicroblogs#MICROBLOGS_CONTENT_AUTOCOMPLETE_USERNAME" value1="${mentionUserName}" />
@@ -338,8 +359,8 @@
 		<var name="key_microblogsEntryCommentContent" value="${microblogsEntryCommentContent}" />
 		<var name="key_microblogsEntryContent" value="${microblogsEntryContent}" />
 
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -359,8 +380,8 @@
 	</command>
 
 	<command name="deleteMicroblogsEntryViaProfile">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -426,7 +447,10 @@
 		<execute function="Type#sendKeys" locator1="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" value1=" Edit" />
 
 		<execute macro="SOMicroblogs#viewCharacterCountdownCmd">
+			<var name="characterCountdown" value="${characterCountdown}" />
 			<var name="editInDashboard" value="true" />
+			<var name="textFieldContent?length()" value="${textFieldContent?length()}" />
+			<var name="textFieldContentLength" value="${textFieldContentLength}" />
 		</execute>
 
 		<execute function="Click" locator1="SOMicroblogs#MICROBLOGS_ENTRY_CONTENT_EDIT_POST_BUTTON" />
@@ -437,8 +461,8 @@
 	</command>
 
 	<command name="editMicroblogsEntryViaProfile">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -450,6 +474,7 @@
 		<execute function="SelectFrameTop" />
 
 		<execute macro="SOMicroblogs#selectViewableByCmd">
+			<var name="editInDashboard" value="${editInDashboard}" />
 			<var name="microblogsEntryViewableBy" value="${microblogsEntryViewableBy}" />
 		</execute>
 
@@ -513,7 +538,9 @@
 	<command name="tearDownMicroblogsEntry">
 		<execute macro="SOUser#firstLoginPG" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Microblogs" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -544,7 +571,7 @@
 		<var attribute="value" locator="SOMicroblogs#MICROBLOGS_CONTENT_INPUT_FIELD" name="textFieldContent" />
 		<var name="textFieldContentLength" value="${textFieldContent?length()}" />
 
-		<var method="MathUtil#difference(&quot;150&quot;, &quot;${textFieldContentLength}&quot;)" name="characterCountdown" />
+		<var method="MathUtil#difference('150', '${textFieldContentLength}')" name="characterCountdown" />
 
 		<if>
 			<equals arg1="${commentInDashboard}" arg2="true" />
@@ -855,8 +882,8 @@
 	<command name="viewMicroblogsEntryMentionViaProfile">
 		<var name="microblogsEntryContent" value="${microblogsEntryContent} ${mentionUserName}" />
 
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -876,8 +903,8 @@
 		<execute function="AssertTextEquals" locator1="SOProfile#USER_EMAIL" value1="${mentionUserEmailAddress}" />
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -967,8 +994,8 @@
 	<command name="viewMicroblogsEntryOwnMentionViaProfile">
 		<var name="microblogsEntryContent" value="${microblogsEntryContent} ${mentionUserName}" />
 
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#NAVIGATION_MICROBLOGS" value1="Microblogs" />
 
@@ -1100,7 +1127,9 @@
 			</else>
 		</if>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Contacts Center" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />
@@ -1198,7 +1227,9 @@
 	<command name="viewOwnMicroblogsRepost">
 		<var name="key_microblogsEntryContent" value="${microblogsEntryContent}" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Microblogs" />
 			<var name="soDashboard" value="true" />
 			<var name="soPage" value="true" />

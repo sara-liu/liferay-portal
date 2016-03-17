@@ -16,20 +16,21 @@ package com.liferay.portal.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.json.JSON;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.PortletModel;
+import com.liferay.portal.kernel.model.PortletSoap;
+import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.PortletModel;
-import com.liferay.portal.model.PortletSoap;
-import com.liferay.portal.service.ServiceContext;
-
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
 
@@ -71,7 +72,18 @@ public class PortletModelImpl extends BaseModelImpl<Portlet>
 			{ "roles", Types.VARCHAR },
 			{ "active_", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table Portlet (mvccVersion LONG default 0,id_ LONG not null primary key,companyId LONG,portletId VARCHAR(200) null,roles STRING null,active_ BOOLEAN)";
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+
+	static {
+		TABLE_COLUMNS_MAP.put("mvccVersion", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("portletId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("roles", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
+	}
+
+	public static final String TABLE_SQL_CREATE = "create table Portlet (mvccVersion LONG default 0 not null,id_ LONG not null primary key,companyId LONG,portletId VARCHAR(200) null,roles STRING null,active_ BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table Portlet";
 	public static final String ORDER_BY_JPQL = " ORDER BY portlet.id ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY Portlet.id_ ASC";
@@ -79,13 +91,13 @@ public class PortletModelImpl extends BaseModelImpl<Portlet>
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.entity.cache.enabled.com.liferay.portal.model.Portlet"),
+				"value.object.entity.cache.enabled.com.liferay.portal.kernel.model.Portlet"),
 			true);
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.finder.cache.enabled.com.liferay.portal.model.Portlet"),
+				"value.object.finder.cache.enabled.com.liferay.portal.kernel.model.Portlet"),
 			true);
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.column.bitmask.enabled.com.liferay.portal.model.Portlet"),
+				"value.object.column.bitmask.enabled.com.liferay.portal.kernel.model.Portlet"),
 			true);
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 	public static final long PORTLETID_COLUMN_BITMASK = 2L;
@@ -135,7 +147,7 @@ public class PortletModelImpl extends BaseModelImpl<Portlet>
 	}
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
-				"lock.expiration.time.com.liferay.portal.model.Portlet"));
+				"lock.expiration.time.com.liferay.portal.kernel.model.Portlet"));
 
 	public PortletModelImpl() {
 	}
@@ -494,7 +506,7 @@ public class PortletModelImpl extends BaseModelImpl<Portlet>
 		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.portal.model.Portlet");
+		sb.append("com.liferay.portal.kernel.model.Portlet");
 		sb.append("</model-name>");
 
 		sb.append(

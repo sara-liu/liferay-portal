@@ -17,7 +17,6 @@ package com.liferay.portal.kernel.search;
 import com.liferay.portal.kernel.search.bundle.opensearchregistryutil.TestOpenSearch;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.test.rule.SyntheticBundleRule;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class OpenSearchRegistryUtilTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE,
+			new LiferayIntegrationTestRule(),
 			new SyntheticBundleRule("bundle.opensearchregistryutil"));
 
 	@Test
@@ -50,6 +49,8 @@ public class OpenSearchRegistryUtilTest {
 
 	@Test
 	public void testGetOpenSearchInstances() {
+		boolean exists = false;
+
 		List<OpenSearch> openSearches =
 			OpenSearchRegistryUtil.getOpenSearchInstances();
 
@@ -57,11 +58,13 @@ public class OpenSearchRegistryUtilTest {
 			String openSearchClassName = openSearch.getClassName();
 
 			if (openSearchClassName.equals(TestOpenSearch.class.getName())) {
-				return;
+				exists = true;
+
+				break;
 			}
 		}
 
-		Assert.fail();
+		Assert.assertTrue(exists);
 	}
 
 }

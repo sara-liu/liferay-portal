@@ -14,6 +14,19 @@
 
 package com.liferay.portal.webserver;
 
+import com.liferay.document.library.kernel.exception.NoSuchFileEntryException;
+import com.liferay.document.library.kernel.exception.NoSuchFileException;
+import com.liferay.document.library.kernel.exception.NoSuchFolderException;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
+import com.liferay.document.library.kernel.service.DLAppServiceUtil;
+import com.liferay.document.library.kernel.util.AudioProcessorUtil;
+import com.liferay.document.library.kernel.util.DLUtil;
+import com.liferay.document.library.kernel.util.ImageProcessorUtil;
+import com.liferay.document.library.kernel.util.PDFProcessor;
+import com.liferay.document.library.kernel.util.PDFProcessorUtil;
+import com.liferay.document.library.kernel.util.VideoProcessor;
+import com.liferay.document.library.kernel.util.VideoProcessorUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.flash.FlashMagicBytesUtil;
@@ -21,12 +34,34 @@ import com.liferay.portal.kernel.image.ImageBag;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.provider.PortletProvider;
-import com.liferay.portal.kernel.provider.PortletProviderUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Image;
+import com.liferay.portal.kernel.model.ImageConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
+import com.liferay.portal.kernel.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.kernel.repository.Repository;
 import com.liferay.portal.kernel.repository.RepositoryException;
+import com.liferay.portal.kernel.repository.RepositoryProviderUtil;
+import com.liferay.portal.kernel.repository.capabilities.ThumbnailCapability;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileShortcut;
 import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.ImageLocalServiceUtil;
+import com.liferay.portal.kernel.service.ImageServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -35,6 +70,7 @@ import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.URLTemplateResource;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -45,6 +81,7 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -52,50 +89,14 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.Validator_IW;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.webdav.WebDAVUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Image;
-import com.liferay.portal.model.ImageConstants;
-import com.liferay.portal.model.User;
 import com.liferay.portal.model.impl.ImageImpl;
-import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
-import com.liferay.portal.repository.liferayrepository.model.LiferayFileEntry;
-import com.liferay.portal.repository.liferayrepository.model.LiferayFileVersion;
-import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.ImageLocalServiceUtil;
-import com.liferay.portal.service.ImageServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.PortletPermissionUtil;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.portal.util.WebKeys;
-import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
-import com.liferay.portlet.documentlibrary.NoSuchFolderException;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileShortcut;
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
-import com.liferay.portlet.documentlibrary.service.DLFileEntryServiceUtil;
-import com.liferay.portlet.documentlibrary.util.AudioProcessorUtil;
-import com.liferay.portlet.documentlibrary.util.DLUtil;
 import com.liferay.portlet.documentlibrary.util.DocumentConversionUtil;
-import com.liferay.portlet.documentlibrary.util.ImageProcessorUtil;
-import com.liferay.portlet.documentlibrary.util.PDFProcessor;
-import com.liferay.portlet.documentlibrary.util.PDFProcessorUtil;
-import com.liferay.portlet.documentlibrary.util.VideoProcessor;
-import com.liferay.portlet.documentlibrary.util.VideoProcessorUtil;
-import com.liferay.portlet.trash.model.TrashEntry;
-import com.liferay.portlet.trash.util.TrashUtil;
+import com.liferay.trash.kernel.model.TrashEntry;
+import com.liferay.trash.kernel.util.TrashUtil;
 
 import java.awt.image.RenderedImage;
 
@@ -132,12 +133,21 @@ public class WebServerServlet extends HttpServlet {
 	 * @see com.liferay.portal.servlet.filters.virtualhost.VirtualHostFilter
 	 */
 	public static boolean hasFiles(HttpServletRequest request) {
+		String name = PrincipalThreadLocal.getName();
+		String password = PrincipalThreadLocal.getPassword();
+
 		try {
 
 			// Do not use permission checking since this may be called from
 			// other contexts that are also managing the principal
 
 			User user = _getUser(request);
+
+			if (!user.isDefaultUser()) {
+				PrincipalThreadLocal.setName(user.getUserId());
+				PrincipalThreadLocal.setPassword(
+					PortalUtil.getUserPassword(request));
+			}
 
 			String path = HttpUtil.fixPath(request.getPathInfo());
 
@@ -184,6 +194,10 @@ public class WebServerServlet extends HttpServlet {
 		}
 		catch (Exception e) {
 			return false;
+		}
+		finally {
+			PrincipalThreadLocal.setName(name);
+			PrincipalThreadLocal.setPassword(password);
 		}
 
 		return true;
@@ -311,13 +325,11 @@ public class WebServerServlet extends HttpServlet {
 		FileEntry fileEntry = PortletFileRepositoryUtil.getPortletFileEntry(
 			uuid, groupId);
 
-		DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
-
 		int status = ParamUtil.getInteger(
 			request, "status", WorkflowConstants.STATUS_APPROVED);
 
 		if ((status != WorkflowConstants.STATUS_IN_TRASH) &&
-			dlFileEntry.isInTrash()) {
+			fileEntry.isInTrash()) {
 
 			return null;
 		}
@@ -389,10 +401,10 @@ public class WebServerServlet extends HttpServlet {
 
 	protected FileEntry getFileEntry(String[] pathArray) throws Exception {
 		if (pathArray.length == 1) {
-			long dlFileShortcutId = GetterUtil.getLong(pathArray[0]);
+			long fileShortcutId = GetterUtil.getLong(pathArray[0]);
 
-			DLFileShortcut dlFileShortcut = DLAppServiceUtil.getFileShortcut(
-				dlFileShortcutId);
+			FileShortcut dlFileShortcut = DLAppServiceUtil.getFileShortcut(
+				fileShortcutId);
 
 			return DLAppServiceUtil.getFileEntry(
 				dlFileShortcut.getToFileEntryId());
@@ -475,16 +487,24 @@ public class WebServerServlet extends HttpServlet {
 		return image;
 	}
 
-	protected byte[] getImageBytes(HttpServletRequest request, Image image) {
+	protected byte[] getImageBytes(HttpServletRequest request, Image image)
+		throws PortalException {
+
+		byte[] textObj = image.getTextObj();
+
+		if ((textObj == null) || (textObj.length == 0)) {
+			throw new NoSuchFileException();
+		}
+
 		try {
 			if (!PropsValues.IMAGE_AUTO_SCALE) {
-				return image.getTextObj();
+				return textObj;
 			}
 
 			ImageBag imageBag = null;
 
 			if (image.getImageId() == 0) {
-				imageBag = ImageToolUtil.read(image.getTextObj());
+				imageBag = ImageToolUtil.read(textObj);
 
 				RenderedImage renderedImage = imageBag.getRenderedImage();
 
@@ -498,11 +518,11 @@ public class WebServerServlet extends HttpServlet {
 				request, "width", image.getWidth());
 
 			if ((height >= image.getHeight()) && (width >= image.getWidth())) {
-				return image.getTextObj();
+				return textObj;
 			}
 
 			if (image.getImageId() != 0) {
-				imageBag = ImageToolUtil.read(image.getTextObj());
+				imageBag = ImageToolUtil.read(textObj);
 			}
 
 			RenderedImage renderedImage = ImageToolUtil.scale(
@@ -516,7 +536,7 @@ public class WebServerServlet extends HttpServlet {
 			}
 		}
 
-		return image.getTextObj();
+		return textObj;
 	}
 
 	protected long getImageId(HttpServletRequest request) {
@@ -666,10 +686,20 @@ public class WebServerServlet extends HttpServlet {
 				return false;
 			}
 
-			DLFileEntry dlFileEntry =
-				DLFileEntryServiceUtil.fetchFileEntryByImageId(imageId);
+			Repository repository = RepositoryProviderUtil.getImageRepository(
+				imageId);
 
-			if (dlFileEntry == null) {
+			if (!repository.isCapabilityProvided(ThumbnailCapability.class)) {
+				return false;
+			}
+
+			ThumbnailCapability thumbnailCapability = repository.getCapability(
+				ThumbnailCapability.class);
+
+			FileEntry fileEntry = thumbnailCapability.fetchImageFileEntry(
+				imageId);
+
+			if (fileEntry == null) {
 				return false;
 			}
 
@@ -678,20 +708,21 @@ public class WebServerServlet extends HttpServlet {
 
 			String queryString = StringPool.BLANK;
 
-			if (imageId == dlFileEntry.getSmallImageId()) {
+			if (imageId == thumbnailCapability.getSmallImageId(fileEntry)) {
 				queryString = "&imageThumbnail=1";
 			}
-			else if (imageId == dlFileEntry.getCustom1ImageId()) {
+			else if (imageId ==
+						thumbnailCapability.getCustom1ImageId(fileEntry)) {
+
 				queryString = "&imageThumbnail=2";
 			}
-			else if (imageId == dlFileEntry.getCustom2ImageId()) {
+			else if (imageId ==
+						thumbnailCapability.getCustom2ImageId(fileEntry)) {
+
 				queryString = "&imageThumbnail=3";
 			}
 
-			FileEntry fileEntry = new LiferayFileEntry(dlFileEntry);
-
-			FileVersion fileVersion = new LiferayFileVersion(
-				dlFileEntry.getFileVersion());
+			FileVersion fileVersion = fileEntry.getFileVersion();
 
 			if (PropsValues.DL_FILE_ENTRY_IG_THUMBNAIL_GENERATION &&
 				Validator.isNotNull(queryString)) {
@@ -878,7 +909,10 @@ public class WebServerServlet extends HttpServlet {
 			if (!PortletPermissionUtil.hasControlPanelAccessPermission(
 					permissionChecker, fileEntry.getGroupId(), portletId)) {
 
-				throw new PrincipalException();
+				throw new PrincipalException.MustHavePermission(
+					permissionChecker, FileEntry.class.getName(),
+					fileEntry.getFileEntryId(),
+					ActionKeys.ACCESS_IN_CONTROL_PANEL);
 			}
 		}
 
@@ -1091,7 +1125,7 @@ public class WebServerServlet extends HttpServlet {
 		if (!PropsValues.WEB_SERVER_SERVLET_DIRECTORY_INDEXING_ENABLED) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-			return;
+			throw new PrincipalException();
 		}
 
 		List<WebServerEntry> webServerEntries = new ArrayList<>();
@@ -1183,7 +1217,9 @@ public class WebServerServlet extends HttpServlet {
 	}
 
 	protected void writeImage(
-		Image image, HttpServletRequest request, HttpServletResponse response) {
+			Image image, HttpServletRequest request,
+			HttpServletResponse response)
+		throws PortalException {
 
 		if (image == null) {
 			return;
@@ -1201,9 +1237,9 @@ public class WebServerServlet extends HttpServlet {
 
 		String fileName = ParamUtil.getString(request, "fileName");
 
-		try {
-			byte[] bytes = getImageBytes(request, image);
+		byte[] bytes = getImageBytes(request, image);
 
+		try {
 			if (Validator.isNotNull(fileName)) {
 				ServletResponseUtil.sendFile(
 					request, response, fileName, bytes, contentType);
@@ -1221,13 +1257,12 @@ public class WebServerServlet extends HttpServlet {
 
 	private static void _checkFileEntry(String[] pathArray) throws Exception {
 		if (pathArray.length == 1) {
-			long dlFileShortcutId = GetterUtil.getLong(pathArray[0]);
+			long fileShortcutId = GetterUtil.getLong(pathArray[0]);
 
-			DLFileShortcut dlFileShortcut =
-				DLAppLocalServiceUtil.getFileShortcut(dlFileShortcutId);
+			FileShortcut fileShortcut = DLAppLocalServiceUtil.getFileShortcut(
+				fileShortcutId);
 
-			DLAppLocalServiceUtil.getFileEntry(
-				dlFileShortcut.getToFileEntryId());
+			DLAppLocalServiceUtil.getFileEntry(fileShortcut.getToFileEntryId());
 		}
 		else if (pathArray.length == 2) {
 
@@ -1322,9 +1357,9 @@ public class WebServerServlet extends HttpServlet {
 
 	private static final Set<String> _acceptRangesMimeTypes = SetUtil.fromArray(
 		PropsValues.WEB_SERVER_SERVLET_ACCEPT_RANGES_MIME_TYPES);
-	private static final Format _dateFormat =
-		FastDateFormatFactoryUtil.getSimpleDateFormat("d MMM yyyy HH:mm z");
 
+	private final Format _dateFormat =
+		FastDateFormatFactoryUtil.getSimpleDateFormat("d MMM yyyy HH:mm z");
 	private boolean _lastModified = true;
 	private TemplateResource _templateResource;
 

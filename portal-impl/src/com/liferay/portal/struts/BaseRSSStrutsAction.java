@@ -17,7 +17,7 @@ package com.liferay.portal.struts;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.util.ContentTypes;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public abstract class BaseRSSStrutsAction extends BaseStrutsAction {
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		if (!PortalUtil.isRSSFeedsEnabled()) {
+		if (!isRSSFeedsEnabled(request)) {
 			PortalUtil.sendRSSFeedsDisabledError(request, response);
 
 			return null;
@@ -54,5 +54,11 @@ public abstract class BaseRSSStrutsAction extends BaseStrutsAction {
 
 	protected abstract byte[] getRSS(HttpServletRequest request)
 		throws Exception;
+
+	protected boolean isRSSFeedsEnabled(HttpServletRequest request)
+		throws Exception {
+
+		return PortalUtil.isRSSFeedsEnabled();
+	}
 
 }

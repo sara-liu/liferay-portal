@@ -15,6 +15,9 @@
 package com.liferay.portlet.social.service;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
@@ -22,13 +25,10 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.comparator.UserScreenNameComparator;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
-import com.liferay.portal.util.comparator.UserScreenNameComparator;
-import com.liferay.portlet.social.model.SocialRelationConstants;
+import com.liferay.social.kernel.model.SocialRelationConstants;
+import com.liferay.social.kernel.service.SocialRelationLocalServiceUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -48,8 +48,7 @@ public class SocialRelationLocalServiceTest {
 	@ClassRule
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
-		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE);
+		new LiferayIntegrationTestRule();
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
@@ -57,11 +56,11 @@ public class SocialRelationLocalServiceTest {
 		// Users
 
 		for (int i = 0; i < 9; i++) {
-			_dlcUsers[i] = UserTestUtil.addUser("dlc" + (i + 1), false, null);
+			_dlcUsers[i] = UserTestUtil.addUser("dlc" + (i + 1), null);
 		}
 
 		for (int i = 0; i < 9; i++) {
-			_fraUsers[i] = UserTestUtil.addUser("fra" + (i + 1), false, null);
+			_fraUsers[i] = UserTestUtil.addUser("fra" + (i + 1), null);
 		}
 
 		// Friend

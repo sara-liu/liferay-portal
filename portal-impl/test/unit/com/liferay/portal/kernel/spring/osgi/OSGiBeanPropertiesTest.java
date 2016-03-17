@@ -302,9 +302,7 @@ public class OSGiBeanPropertiesTest {
 	@Test
 	public void testWithArrayOfByteProperties() {
 		@OSGiBeanProperties(
-			property = {
-				"key:Byte=127", "key:Byte=95", "key:Byte=13"
-			}
+			property = {"key:Byte=127", "key:Byte=95", "key:Byte=13"}
 		)
 		class C {
 		}
@@ -488,9 +486,7 @@ public class OSGiBeanPropertiesTest {
 	@Test
 	public void testWithArrayOfProperties() {
 		@OSGiBeanProperties(
-			property = {
-				"key=valueA", "key=valueB", "key=valueC"
-			}
+			property = {"key=valueA", "key=valueB", "key=valueC"}
 		)
 		class C {
 		}
@@ -516,9 +512,7 @@ public class OSGiBeanPropertiesTest {
 	@Test
 	public void testWithArrayOfShortProperties() {
 		@OSGiBeanProperties(
-			property = {
-				"key:Short=32767", "key:Short=-32768", "key:Short=12"
-			}
+			property = {"key:Short=32767", "key:Short=-32768", "key:Short=12"}
 		)
 		class C {
 		}
@@ -558,9 +552,7 @@ public class OSGiBeanPropertiesTest {
 
 	@Test
 	public void testWithPortalProperties() {
-		@OSGiBeanProperties(
-			portalPropertyPrefix = "portlet."
-		)
+		@OSGiBeanProperties(portalPropertyPrefix = "portlet.")
 		class C {
 		}
 
@@ -610,8 +602,8 @@ public class OSGiBeanPropertiesTest {
 		Assert.assertNotNull(properties);
 		Assert.assertEquals("value1", properties.get("key1"));
 		Assert.assertEquals(Boolean.TRUE, properties.get("key2"));
-		Assert.assertEquals(new Byte("127"), properties.get("key3"));
-		Assert.assertEquals(new Character('@'), properties.get("key4"));
+		Assert.assertEquals(Byte.valueOf("127"), properties.get("key3"));
+		Assert.assertEquals(Character.valueOf('@'), properties.get("key4"));
 		Assert.assertEquals(Double.MAX_VALUE, properties.get("key5"));
 		Assert.assertEquals(Float.MAX_VALUE, properties.get("key6"));
 		Assert.assertEquals(Integer.MAX_VALUE, properties.get("key7"));

@@ -14,9 +14,9 @@
 
 package com.liferay.portal.security.ldap;
 
+import com.liferay.portal.kernel.security.ldap.LDAPSettingsUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.test.rule.SyntheticBundleRule;
 
 import java.util.Properties;
@@ -27,64 +27,45 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
-* @author Peter Fellwock
-*/
+ * @author Peter Fellwock
+ */
 public class LDAPSettingsUtilTest {
 
 	@ClassRule
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE,
+			new LiferayIntegrationTestRule(),
 			new SyntheticBundleRule("bundle.ldapsettingsutil"));
 
 	@Test
-	public void testGetAuthSearchFilter() {
-		try {
-			Assert.assertEquals(
-				"(companyId=1)", LDAPSettingsUtil.getAuthSearchFilter(
-					1, 1, "test@liferay-test.com", "test-ip", "test"));
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+	public void testGetAuthSearchFilter() throws Exception {
+		Assert.assertEquals(
+			"(companyId=1)",
+			LDAPSettingsUtil.getAuthSearchFilter(
+				1, 1, "test@liferay-test.com", "test-ip", "test"));
 	}
 
 	@Test
-	public void testGetContactExpandoMappings() {
-		try {
-			Properties properties = LDAPSettingsUtil.getContactExpandoMappings(
-				1, 1);
+	public void testGetContactExpandoMappings() throws Exception {
+		Properties properties = LDAPSettingsUtil.getContactExpandoMappings(
+			1, 1);
 
-			Assert.assertEquals(properties.get("ldapServerId"), "1");
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals("1", properties.get("ldapServerId"));
 	}
 
 	@Test
-	public void testGetContactMappings() {
-		try {
-			Properties properties = LDAPSettingsUtil .getContactMappings(1, 1);
+	public void testGetContactMappings() throws Exception {
+		Properties properties = LDAPSettingsUtil .getContactMappings(1, 1);
 
-			Assert.assertEquals(properties.get("ldapServerId"), "1");
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals("1", properties.get("ldapServerId"));
 	}
 
 	@Test
-	public void testGetGroupMappings() {
-		try {
-			Properties properties = LDAPSettingsUtil .getGroupMappings(1, 1);
+	public void testGetGroupMappings() throws Exception {
+		Properties properties = LDAPSettingsUtil .getGroupMappings(1, 1);
 
-			Assert.assertEquals(properties.get("ldapServerId"), "1");
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals("1", properties.get("ldapServerId"));
 	}
 
 	@Test
@@ -92,39 +73,28 @@ public class LDAPSettingsUtilTest {
 		long ldapServerId = LDAPSettingsUtil.getPreferredLDAPServerId(
 			1, "test");
 
-		Assert.assertEquals(ldapServerId, 1234567890);
+		Assert.assertEquals(1234567890, ldapServerId);
 	}
 
 	@Test
 	public void testGetPropertyPostfix() {
 		String postfix = LDAPSettingsUtil.getPropertyPostfix(1);
 
-		Assert.assertEquals(postfix, "liferay.ldap");
+		Assert.assertEquals("liferay.ldap", postfix);
 	}
 
 	@Test
-	public void testGetUserExpandoMappings() {
-		try {
-			Properties properties = LDAPSettingsUtil.getUserExpandoMappings(
-				1, 1);
+	public void testGetUserExpandoMappings() throws Exception {
+		Properties properties = LDAPSettingsUtil.getUserExpandoMappings(1, 1);
 
-			Assert.assertEquals(properties.get("ldapServerId"), "1");
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals("1", properties.get("ldapServerId"));
 	}
 
 	@Test
-	public void testGetUserMappings() {
-		try {
-			Properties properties = LDAPSettingsUtil .getUserMappings(1, 1);
+	public void testGetUserMappings() throws Exception {
+		Properties properties = LDAPSettingsUtil .getUserMappings(1, 1);
 
-			Assert.assertEquals(properties.get("ldapServerId"), "1");
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals("1", properties.get("ldapServerId"));
 	}
 
 	@Test

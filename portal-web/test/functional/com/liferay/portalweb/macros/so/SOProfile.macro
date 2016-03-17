@@ -1,7 +1,7 @@
 <definition>
 	<command name="addAdditionalEmailAddress">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_EMAIL_ADDRESS" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -17,8 +17,8 @@
 	</command>
 
 	<command name="addAddress">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_ADDRESSES" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -79,31 +79,19 @@
 		</execute>
 
 		<execute macro="SOContactsCenter#confirmRequestToConnect">
+			<var name="numberOfConnections" value="${numberOfConnections}" />
+			<var name="numberOfNotifications" value="${numberOfNotifications}" />
 			<var name="senderName" value="${adminName}" />
 			<var name="userName" value="${userName}" />
 		</execute>
 	</command>
 
 	<command name="addInstantMessenger">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_INSTANT_MESSENGER" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
-
-		<if>
-			<isset var="userInstantMessengerAIM" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#AIM_FIELD" value1="${userInstantMessengerAIM}" />
-			</then>
-		</if>
-
-		<if>
-			<isset var="userInstantMessengerICQ" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#ICQ_FIELD" value1="${userInstantMessengerICQ}" />
-			</then>
-		</if>
 
 		<if>
 			<isset var="userInstantMessengerJabber" />
@@ -119,35 +107,17 @@
 			</then>
 		</if>
 
-		<if>
-			<isset var="userInstantMessengerWindowsLiveMessenger" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#WINDOWS_LIVE_MESSENGER_FIELD" value1="${userInstantMessengerWindowsLiveMessenger}" />
-			</then>
-		</if>
-
-		<if>
-			<isset var="userInstantMessengerYM" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#YM_FIELD" value1="${userInstantMessengerYM}" />
-			</then>
-		</if>
-
 		<execute function="Click" locator1="SOProfileAddInstantMessenger#SAVE_BUTTON" />
 
 		<execute function="SelectFrame" value1="relative=top" />
 		<execute function="AssertTextEquals#assertText" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_TITLE" value1="Instant Messenger:" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_AIM_CONTENT" value1="AIM ${userInstantMessengerAIM}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_ICQ_CONTENT" value1="ICQ ${userInstantMessengerICQ}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_JABBER_CONTENT" value1="Jabber ${userInstantMessengerJabber}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_MSN_CONTENT" value1="msn ${userInstantMessengerWindowsLiveMessenger}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_SKYPE_CONTENT" value1="Skype ${userInstantMessengerSkype}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_YM_CONTENT" value1="ym ${userInstantMessengerYM}" />
 	</command>
 
 	<command name="addIntroduction">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_INTRODUCTION" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -161,8 +131,8 @@
 	</command>
 
 	<command name="addPhoneNumbers">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_PHONES" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -195,8 +165,8 @@
 	</command>
 
 	<command name="addProfilePicture">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click#makeVisibleClickAt" locator1="SOProfile#EDIT_PROFILE_PICTURE_BUTTON" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -219,8 +189,8 @@
 	</command>
 
 	<command name="addProjects">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_PROJECTS" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -252,8 +222,8 @@
 	</command>
 
 	<command name="addSMS">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_SMS" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -267,8 +237,8 @@
 	</command>
 
 	<command name="addSocialNetwork">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_SOCIAL_NETWORK" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -296,8 +266,8 @@
 	</command>
 
 	<command name="addTag">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_TAGS" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -315,8 +285,8 @@
 	</command>
 
 	<command name="addWebsite">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#ADD_WEBSITES" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -376,8 +346,8 @@
 	</command>
 
 	<command name="editAdditionalEmailAddress">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_EMAIL_ADDRESS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -393,8 +363,8 @@
 	</command>
 
 	<command name="editAdditionalEmailAddressNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_EMAIL_ADDRESS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -407,8 +377,8 @@
 	</command>
 
 	<command name="editAddress">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_ADDRESS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -456,8 +426,8 @@
 	</command>
 
 	<command name="editAddressNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_ADDRESS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -473,25 +443,11 @@
 	</command>
 
 	<command name="editInstantMessenger">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
-
-		<if>
-			<isset var="userInstantMessengerAIM" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#AIM_FIELD" value1="${userInstantMessengerAIM}" />
-			</then>
-		</if>
-
-		<if>
-			<isset var="userInstantMessengerICQ" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#ICQ_FIELD" value1="${userInstantMessengerICQ}" />
-			</then>
-		</if>
 
 		<if>
 			<isset var="userInstantMessengerJabber" />
@@ -507,45 +463,23 @@
 			</then>
 		</if>
 
-		<if>
-			<isset var="userInstantMessengerWindowsLiveMessenger" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#WINDOWS_LIVE_MESSENGER_FIELD" value1="${userInstantMessengerWindowsLiveMessenger}" />
-			</then>
-		</if>
-
-		<if>
-			<isset var="userInstantMessengerYM" />
-			<then>
-				<execute function="Type" locator1="SOProfileAddInstantMessenger#YM_FIELD" value1="${userInstantMessengerYM}" />
-			</then>
-		</if>
-
 		<execute function="Click" locator1="SOProfileAddInstantMessenger#SAVE_BUTTON" />
 
 		<execute function="SelectFrame" value1="relative=top" />
 		<execute function="AssertTextEquals#assertText" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_TITLE" value1="Instant Messenger:" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_AIM_CONTENT" value1="AIM ${userInstantMessengerAIM}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_ICQ_CONTENT" value1="ICQ ${userInstantMessengerICQ}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_JABBER_CONTENT" value1="Jabber ${userInstantMessengerJabber}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_MSN_CONTENT" value1="msn ${userInstantMessengerWindowsLiveMessenger}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_SKYPE_CONTENT" value1="Skype ${userInstantMessengerSkype}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_YM_CONTENT" value1="ym ${userInstantMessengerYM}" />
 	</command>
 
 	<command name="editInstantMessengerNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
 
-		<execute function="Type" locator1="SOProfileAddInstantMessenger#AIM_FIELD" value1="" />
-		<execute function="Type" locator1="SOProfileAddInstantMessenger#ICQ_FIELD" value1="" />
 		<execute function="Type" locator1="SOProfileAddInstantMessenger#JABBER_FIELD" value1="" />
 		<execute function="Type" locator1="SOProfileAddInstantMessenger#SKYPE_FIELD" value1="" />
-		<execute function="Type" locator1="SOProfileAddInstantMessenger#WINDOWS_LIVE_MESSENGER_FIELD" value1="" />
-		<execute function="Type" locator1="SOProfileAddInstantMessenger#YM_FIELD" value1="" />
 		<execute function="Click" locator1="SOProfileAddInstantMessenger#SAVE_BUTTON" />
 
 		<execute function="SelectFrame" value1="relative=top" />
@@ -553,8 +487,8 @@
 	</command>
 
 	<command name="editIntroduction">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_INTRODUCTION_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -568,8 +502,8 @@
 	</command>
 
 	<command name="editIntroductionNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_INTRODUCTION_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -582,8 +516,8 @@
 	</command>
 
 	<command name="editPhoneNumbers">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_PHONE_NUMBERS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -616,8 +550,8 @@
 	</command>
 
 	<command name="editPhoneNumbersNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_PHONE_NUMBERS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -631,8 +565,8 @@
 	</command>
 
 	<command name="editProjects">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_PROJECTS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -664,8 +598,8 @@
 	</command>
 
 	<command name="editProjectsNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_PROJECTS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -679,8 +613,8 @@
 	</command>
 
 	<command name="editSMS">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_SMS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -694,8 +628,8 @@
 	</command>
 
 	<command name="editSMSNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_SMS_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -708,8 +642,8 @@
 	</command>
 
 	<command name="editSocialNetwork">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_SOCIAL_NETWORK_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -737,8 +671,8 @@
 	</command>
 
 	<command name="editSocialNetworkNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_SOCIAL_NETWORK_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -752,8 +686,8 @@
 	</command>
 
 	<command name="editTag">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_TAGS_EDIT" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -771,8 +705,8 @@
 	</command>
 
 	<command name="editTagNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_TAGS_EDIT" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -792,8 +726,8 @@
 	</command>
 
 	<command name="editWebsite">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_WEBSITES_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -809,8 +743,8 @@
 	</command>
 
 	<command name="editWebsiteNull">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<execute function="Click" locator1="SOProfile#PROFILE_INFO_WEBSITES_TITLE" />
 		<execute function="SelectFrame" locator1="SOProfile#ADD_CONTENT_IFRAME" />
@@ -888,7 +822,9 @@
 		<execute function="Pause" value1="1000" />
 		<execute function="SelectFrame" value1="relative=top" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
+			<var name="defaultURL" value="${defaultURL}" />
+			<var name="nodePort" value="${nodePort}" />
 			<var name="pageName" value="Messages" />
 			<var name="soDashboard" value="true" />
 		</execute>
@@ -986,7 +922,7 @@
 		<execute function="AssertTextEquals" locator1="SOProfile#USER_NAME" value1="${userName}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#USER_EMAIL" value1="${userEmailAddress}" />
 
-		<var locator="Dockbar#USER_NAME" name="currentUser" />
+		<var locator="ControlMenu#USER_NAME" name="currentUser" />
 		<var locator="SOProfile#USER_NAME" name="profileUser" />
 
 		<if>
@@ -1038,12 +974,8 @@
 
 	<command name="viewInstantMessenger">
 		<execute function="AssertTextEquals#assertText" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_TITLE" value1="Instant Messenger:" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_AIM_CONTENT" value1="AIM ${userInstantMessengerAIM}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_ICQ_CONTENT" value1="ICQ ${userInstantMessengerICQ}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_JABBER_CONTENT" value1="Jabber ${userInstantMessengerJabber}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_MSN_CONTENT" value1="msn ${userInstantMessengerWindowsLiveMessenger}" />
 		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_SKYPE_CONTENT" value1="Skype ${userInstantMessengerSkype}" />
-		<execute function="AssertTextEquals" locator1="SOProfile#PROFILE_INFO_INSTANT_MESSENGER_YM_CONTENT" value1="ym ${userInstantMessengerYM}" />
 	</command>
 
 	<command name="viewIntroduction">
@@ -1052,9 +984,9 @@
 	</command>
 
 	<command name="viewLocalizedPG">
-		<execute macro="Page#openURL" />
+		<execute macro="Navigator#openURL" />
 
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
 		<execute function="AssertClick" locator1="//span[contains(.,'${myProfileLocalized}')]" value1="${myProfileLocalized}" />
 
 		<execute macro="SOUserBar#showEditControls" />
@@ -1063,12 +995,14 @@
 
 		<execute function="AssertTextEquals" locator1="SOSite#NAVIGATION_PAGE" value1="${profilePageLocalized}" />
 
-		<var method="StringUtil#upperCase(&quot;${profilePortletLocalized}&quot;)" name="profilePortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${profilePortletLocalized}')" name="profilePortletLocalizedUpperCase" />
+
 		<var name="key_portletName" value="${profilePortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${profilePortletLocalizedUpperCase}" />
 
-		<var method="StringUtil#upperCase(&quot;${microblogsStatusUpdatePortletLocalized}&quot;)" name="microblogsStatusUpdatePortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${microblogsStatusUpdatePortletLocalized}')" name="microblogsStatusUpdatePortletLocalizedUpperCase" />
+
 		<var name="key_portletName" value="${microblogsStatusUpdatePortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${microblogsStatusUpdatePortletLocalizedUpperCase}" />
@@ -1077,12 +1011,13 @@
 
 		<execute function="AssertClick" locator1="SOProfile#NAVIGATION_PAGE" value1="${contactsPageLocalized}" />
 
-		<var method="StringUtil#upperCase(&quot;${profilePortletLocalized}&quot;)" name="profilePortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${profilePortletLocalized}')" name="profilePortletLocalizedUpperCase" />
+
 		<var name="key_portletName" value="${profilePortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${profilePortletLocalizedUpperCase}" />
 
-		<var method="StringUtil#upperCase(&quot;${contactsCenterPortletLocalized}&quot;)" name="contactsCenterPortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${contactsCenterPortletLocalized}')" name="contactsCenterPortletLocalizedUpperCase" />
 		<var name="key_portletName" value="${contactsCenterPortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${contactsCenterPortletLocalizedUpperCase}" />
@@ -1091,12 +1026,14 @@
 
 		<execute function="AssertClick" locator1="SOProfile#NAVIGATION_PAGE" value1="${microblogsPageLocalized}" />
 
-		<var method="StringUtil#upperCase(&quot;${profilePortletLocalized}&quot;)" name="profilePortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${profilePortletLocalized}')" name="profilePortletLocalizedUpperCase" />
+
 		<var name="key_portletName" value="${profilePortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${profilePortletLocalizedUpperCase}" />
 
-		<var method="StringUtil#upperCase(&quot;${microblogsPortletLocalized}&quot;)" name="microblogsPortletLocalizedUpperCase" />
+		<var method="StringUtil#upperCase('${microblogsPortletLocalized}')" name="microblogsPortletLocalizedUpperCase" />
+
 		<var name="key_portletName" value="${microblogsPortletLocalized}" />
 
 		<execute function="AssertTextEquals" locator1="Home#PORTLET_BORDERLESS" value1="${microblogsPortletLocalizedUpperCase}" />
@@ -1139,8 +1076,8 @@
 	</command>
 
 	<command name="viewOwnSiteMembership">
-		<execute function="Click" locator1="Dockbar#USER_NAME" />
-		<execute function="Click" locator1="Dockbar#USER_MY_PROFILE" value1="My Profile" />
+		<execute function="Click" locator1="ControlMenu#USER_NAME" />
+		<execute function="Click" locator1="UserBar#USER_PROFILE" value1="Profile" />
 
 		<var name="key_siteName" value="${siteName}" />
 
@@ -1274,14 +1211,14 @@
 			<then>
 				<var name="key_searchAssetTitle" value="${searchAssetTitle}" />
 
-				<execute function="AssertTextEquals" locator1="PGSearchResults#ASSET_ENTRY_TABLE_TITLE" value1="${searchAssetTitle}" />
-				<execute function="AssertTextEquals#assertPartialText" locator1="PGSearchResults#ASSET_ENTRY_TABLE_TYPE" value1="${searchAssetType}" />
+				<execute function="AssertTextEquals" locator1="SearchResults#ASSET_ENTRY_TABLE_TITLE" value1="${searchAssetTitle}" />
+				<execute function="AssertTextEquals#assertPartialText" locator1="SearchResults#ASSET_ENTRY_TABLE_TYPE" value1="${searchAssetType}" />
 			</then>
 			<else>
 				<var name="key_searchAssetTitle" value="${userName}" />
 
-				<execute function="AssertTextEquals" locator1="PGSearchResults#ASSET_ENTRY_TABLE_TITLE" value1="${userName}" />
-				<execute function="AssertTextEquals#assertPartialText" locator1="PGSearchResults#ASSET_ENTRY_TABLE_TYPE" value1="User" />
+				<execute function="AssertTextEquals" locator1="SearchResults#ASSET_ENTRY_TABLE_TITLE" value1="${userName}" />
+				<execute function="AssertTextEquals#assertPartialText" locator1="SearchResults#ASSET_ENTRY_TABLE_TYPE" value1="User" />
 			</else>
 		</if>
 	</command>

@@ -9,11 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>WebForm</td>
-</tr>
-<tr>
 	<td>EXTEND_ACTION_PATH</td>
 	<td>BasePortlet</td>
 	<td></td>
@@ -68,6 +63,11 @@
 <tr>
 	<td>FORM_FIELDS_CHECKBOX_FIELD_HEADER</td>
 	<td>//div[contains(@class,'checkbox')]/label[contains(.,'${key_wfFieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_FIELDS_PARAGRAPH_FIELD</td>
+	<td>//div[@class='portlet-body']/form/fieldset/div/p[@class='format-paragraph']</td>
 	<td></td>
 </tr>
 <tr>

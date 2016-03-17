@@ -14,43 +14,43 @@
 
 package com.liferay.portal.service.test;
 
-import com.liferay.portal.jcr.JCRFactoryUtil;
-import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseDestination;
+import com.liferay.portal.kernel.messaging.Destination;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.MessageBus;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.messaging.SynchronousDestination;
 import com.liferay.portal.kernel.messaging.sender.SynchronousMessageSender;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
-import com.liferay.portal.kernel.search.SearchEngineUtil;
+import com.liferay.portal.kernel.search.SearchEngineHelperUtil;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.security.permission.ResourceActionsUtil;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourceActionLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.test.util.RoleTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
-import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.User;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.model.impl.PortletImpl;
 import com.liferay.portal.repository.liferayrepository.LiferayRepository;
-import com.liferay.portal.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.security.lang.DoPrivilegedUtil;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
-import com.liferay.portal.security.permission.ResourceActionsUtil;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.ResourceActionLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.tools.DBUpgrader;
 import com.liferay.portal.util.PortalInstances;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portal.util.PropsUtil;
-import com.liferay.portal.util.PropsValues;
+import com.liferay.registry.Filter;
+import com.liferay.registry.Registry;
+import com.liferay.registry.RegistryUtil;
+import com.liferay.registry.dependency.ServiceDependencyListener;
+import com.liferay.registry.dependency.ServiceDependencyManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -68,7 +68,9 @@ import java.util.Set;
  */
 public class ServiceTestUtil {
 
-	public static final int THREAD_COUNT = 25;
+	public static final int RETRY_COUNT = 10;
+
+	public static final int THREAD_COUNT = 10;
 
 	/**
 	 * @deprecated As of 7.0.0
@@ -117,21 +119,6 @@ public class ServiceTestUtil {
 			roleName, roleType, resourceName, scope, primKey, actionId);
 	}
 
-	public static void destroyServices() {
-		_deleteDirectories();
-	}
-
-	public static void initPermissions() {
-		try {
-			PortalInstances.addCompanyId(TestPropsValues.getCompanyId());
-
-			setUser(TestPropsValues.getUser());
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-	}
-
 	public static void initMainServletServices() {
 
 		// Upgrade
@@ -145,29 +132,75 @@ public class ServiceTestUtil {
 
 		// Messaging
 
-		MessageBus messageBus = (MessageBus)PortalBeanLocatorUtil.locate(
-			MessageBus.class.getName());
-		SynchronousMessageSender synchronousMessageSender =
-			(SynchronousMessageSender)PortalBeanLocatorUtil.locate(
-				SynchronousMessageSender.class.getName());
+		MessageBusUtil messageBusUtil = new MessageBusUtil();
 
-		MessageBusUtil.init(
-			DoPrivilegedUtil.wrap(messageBus),
-			DoPrivilegedUtil.wrap(synchronousMessageSender));
+		messageBusUtil.setSynchronousMessageSenderMode(
+			SynchronousMessageSender.Mode.DEFAULT);
 
 		// Scheduler
 
-		try {
-			SchedulerEngineHelperUtil.start();
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+		ServiceDependencyManager schedulerServiceDependencyManager =
+			new ServiceDependencyManager();
+
+		schedulerServiceDependencyManager.addServiceDependencyListener(
+			new ServiceDependencyListener() {
+
+				@Override
+				public void dependenciesFulfilled() {
+					try {
+						SchedulerEngineHelperUtil.start();
+					}
+					catch (Exception e) {
+						_log.error(e, e);
+					}
+				}
+
+				@Override
+				public void destroy() {
+				}
+
+			});
+
+		final Registry registry = RegistryUtil.getRegistry();
+
+		Filter filter = registry.getFilter(
+			"(objectClass=com.liferay.portal.scheduler.quartz.internal." +
+				"QuartzSchemaManager)");
+
+		schedulerServiceDependencyManager.registerDependencies(
+			new Class[] {SchedulerEngineHelper.class}, new Filter[] {filter});
 
 		// Verify
 
 		try {
 			DBUpgrader.verify();
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
+	}
+
+	public static void initPermissions() {
+		try {
+			PortalInstances.addCompanyId(TestPropsValues.getCompanyId());
+
+			setUser(TestPropsValues.getUser());
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
+	}
+
+	public static void initServices() {
+
+		// Thread locals
+
+		_setThreadLocals();
+
+		// Search engine
+
+		try {
+			SearchEngineHelperUtil.initialize(TestPropsValues.getCompanyId());
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -183,6 +216,26 @@ public class ServiceTestUtil {
 		// Messaging
 
 		if (TestPropsValues.DL_FILE_ENTRY_PROCESSORS_TRIGGER_SYNCHRONOUSLY) {
+			ServiceDependencyManager serviceDependencyManager =
+				new ServiceDependencyManager();
+
+			Filter audioProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_AUDIO_PROCESSOR);
+			Filter imageProcessFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_IMAGE_PROCESSOR);
+			Filter pdfProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_PDF_PROCESSOR);
+			Filter rawMetaDataProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_RAW_METADATA_PROCESSOR);
+			Filter videoProcessorFilter = _registerDestinationFilter(
+				DestinationNames.DOCUMENT_LIBRARY_VIDEO_PROCESSOR);
+
+			serviceDependencyManager.registerDependencies(
+				audioProcessorFilter, imageProcessFilter, pdfProcessorFilter,
+				rawMetaDataProcessorFilter, videoProcessorFilter);
+
+			serviceDependencyManager.waitForDependencies();
+
 			_replaceWithSynchronousDestination(
 				DestinationNames.DOCUMENT_LIBRARY_AUDIO_PROCESSOR);
 			_replaceWithSynchronousDestination(
@@ -208,55 +261,15 @@ public class ServiceTestUtil {
 			_log.error(e, e);
 		}
 
-		// Trash
-
-		PortalRegisterTestUtil.registerTrashHandlers();
-
 		// Workflow
 
 		PortalRegisterTestUtil.registerWorkflowHandlers();
-
-		// Asset renderers
-
-		PortalRegisterTestUtil.registerAssetRendererFactories();
 
 		// Company
 
 		try {
 			CompanyLocalServiceUtil.checkCompany(
 				TestPropsValues.COMPANY_WEB_ID);
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-	}
-
-	public static void initServices() {
-
-		// JCR
-
-		try {
-			JCRFactoryUtil.prepare();
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
-
-		// Thread locals
-
-		_setThreadLocals();
-
-		// Directories
-
-		_deleteDirectories();
-
-		// Lucene
-
-		try {
-			FileUtil.mkdirs(
-				PropsValues.LUCENE_DIR + TestPropsValues.getCompanyId());
-
-			SearchEngineUtil.initialize(TestPropsValues.getCompanyId());
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -322,19 +335,12 @@ public class ServiceTestUtil {
 		}
 	}
 
-	private static void _deleteDirectories() {
-		FileUtil.deltree(PropsValues.DL_STORE_FILE_SYSTEM_ROOT_DIR);
+	private static Filter _registerDestinationFilter(String destinationName) {
+		Registry registry = RegistryUtil.getRegistry();
 
-		FileUtil.deltree(
-			PropsUtil.get(PropsKeys.JCR_JACKRABBIT_REPOSITORY_ROOT));
-
-		try {
-			FileUtil.deltree(
-				PropsValues.LUCENE_DIR + TestPropsValues.getCompanyId());
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-		}
+		return registry.getFilter(
+			"(&(destination.name=" + destinationName + ")(objectClass=" +
+				Destination.class.getName() + "))");
 	}
 
 	private static void _replaceWithSynchronousDestination(String name) {

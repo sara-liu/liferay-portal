@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>CalendarEditEvent</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>EDIT_EVENT_IFRAME</td>
 	<td>//iframe[contains(@class,'dialog-iframe-node ')]</td>
 	<td></td>
@@ -31,12 +21,17 @@
 <!--START_DATE-->
 <tr>
 	<td>START_DATE</td>
-	<td>//input[contains(@name,'calendarportlet_startTime') and @placeholder='mm/dd/yyyy']</td>
+	<td>//input[contains(@name,'CalendarPortlet_startTime') and @placeholder='mm/dd/yyyy']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>START_DATE_TIME</td>
-	<td>//input[contains(@name,'calendarportlet_startTime') and @placeholder='h:mm am/pm']</td>
+	<td>//input[contains(@name,'CalendarPortlet_startTime') and @placeholder='h:mm am/pm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>START_DATE_TIME_24_HOUR</td>
+	<td>//input[contains(@name,'CalendarPortlet_startTime') and @placeholder='h:mm']</td>
 	<td></td>
 </tr>
 <tr>
@@ -47,12 +42,17 @@
 <!--END_DATE-->
 <tr>
 	<td>END_DATE</td>
-	<td>//input[contains(@name,'calendarportlet_endTime') and @placeholder='mm/dd/yyyy']</td>
+	<td>//input[contains(@name,'CalendarPortlet_endTime') and @placeholder='mm/dd/yyyy']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>END_DATE_TIME</td>
-	<td>//input[contains(@name,'calendarportlet_endTime') and @placeholder='h:mm am/pm']</td>
+	<td>//input[contains(@name,'CalendarPortlet_endTime') and @placeholder='h:mm am/pm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>END_DATE_TIME_24_HOUR</td>
+	<td>//input[contains(@name,'CalendarPortlet_endTime') and @placeholder='h:mm']</td>
 	<td></td>
 </tr>
 <tr>
@@ -62,7 +62,7 @@
 </tr>
 <tr>
 	<td>ALL_DAY_CHECKBOX</td>
-	<td>//input[contains(@id,'calendarportlet_allDay')]</td>
+	<td>//input[contains(@id,'CalendarPortlet_allDay')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,22 +73,22 @@
 <!--REPEAT-->
 <tr>
 	<td>REPEAT_CHECKBOX</td>
-	<td>//input[contains(@id,'calendarportlet_repeat')]</td>
+	<td>//input[contains(@id,'CalendarPortlet_repeat')]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>REPEAT_SUMMARY_1</td>
+	<td>REPEAT_SUMMARY</td>
 	<td>//a[@class='calendar-portlet-recurrence-summary']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_REPEATS_DROPDOWN</td>
-	<td>//select[contains(@id,'calendarportlet_frequency')]</td>
+	<td>//select[contains(@id,'CalendarPortlet_frequency')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_REPEAT_EVERY_DROPDOWN</td>
-	<td>//select[contains(@id,'calendarportlet_interval')]</td>
+	<td>//select[contains(@id,'CalendarPortlet_interval')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -103,42 +103,62 @@
 </tr>
 <tr>
 	<td>REPEAT_REPEAT_ON_DAY_OF_THE_WEEK_POSITION_DROPDOWN</td>
-	<td>//div[contains(@id,'calendarportlet_viewPositionalWeekday')]//select[@title='Position']</td>
+	<td>//div[contains(@id,'CalendarPortlet_viewPositionalWeekday')]//select[@title='Position']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_REPEAT_ON_DAY_OF_THE_WEEK_WEEKDAY_DROPDOWN</td>
-	<td>//div[contains(@id,'calendarportlet_viewPositionalWeekday')]//select[@title='Weekday']</td>
+	<td>//div[contains(@id,'CalendarPortlet_viewPositionalWeekday')]//select[@title='Weekday']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_ENDS_NEVER_RADIO</td>
-	<td>//input[contains(@name,'calendarportlet_ends') and @value='never']</td>
+	<td>//input[contains(@name,'CalendarPortlet_ends') and @value='never']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_ENDS_AFTER_RADIO</td>
-	<td>//td[contains(@class,'calendar-portlet-recurrence-content')]//input[contains(@name,'calendarportlet_ends') and @value='after']</td>
+	<td>//td[contains(@class,'calendar-portlet-recurrence-content')]//input[contains(@name,'CalendarPortlet_ends') and @value='after']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_ENDS_AFTER_FIELD</td>
-	<td>//input[contains(@id,'calendarportlet_count')]</td>
+	<td>//input[contains(@id,'CalendarPortlet_count')and(@class='field form-control')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEAT_ENDS_ON_DATE_FIELD</td>
+	<td>//input[contains(@id,'CalendarPortlet_untilDate')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_ENDS_ON_RADIO</td>
-	<td>//input[contains(@name,'calendarportlet_ends') and @value='on']</td>
+	<td>//input[contains(@name,'CalendarPortlet_ends') and @value='on']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>REPEAT_SUMMARY_2</td>
+	<td>REPEAT_DIALOG_SUMMARY</td>
 	<td>//span[@class='calendar-portlet-recurrence-summary']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REPEAT_DONE_BUTTON</td>
 	<td>//div[contains(@class,'widget-content-expanded')]/div/div/button[contains(.,'Done')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEAT_MONTHLY_CURRENT_DAY</td>
+	<td>//td[contains(@class,'calendar-recurrence-month-radio')]//input[contains(@id,'CalendarPortlet_weekday') and @type='hidden']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEAT_MONTHLY_CURRENT_MONTH_POSITION</td>
+	<td>//td[contains(@class,'calendar-recurrence-month-radio')]//input[contains(@id,'CalendarPortlet_position') and @type='hidden']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEAT_WEEKLY_CURRENT_DAY</td>
+	<td>//td[contains(@class,'calendar-recurrence-weekday-checkbox')]//input[@disabled='']</td>
 	<td></td>
 </tr>
 <tr>
@@ -159,7 +179,12 @@
 </tr>
 <tr>
 	<td>DETAILS_CALENDAR_SELECT</td>
-	<td>//select[contains(@id,'calendarId')]</td>
+	<td>//select[contains(@*,'calendarId')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_CALENDAR_SELECT_OPTION</td>
+	<td>//select[contains(@*,'calendarId')]/option[contains(.,'${key_calendarName}')]</td>
 	<td></td>
 </tr>
 <tr>

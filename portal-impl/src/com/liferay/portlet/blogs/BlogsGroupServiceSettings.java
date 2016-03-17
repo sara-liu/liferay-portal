@@ -16,7 +16,7 @@ package com.liferay.portlet.blogs;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.settings.FallbackKeys;
-import com.liferay.portal.kernel.settings.GroupServiceSettings;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.settings.ParameterMapSettings;
 import com.liferay.portal.kernel.settings.Settings;
@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.settings.TypedSettings;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portlet.blogs.util.BlogsConstants;
+import com.liferay.portlet.blogs.constants.BlogsConstants;
 
 import java.util.Map;
 
@@ -32,13 +32,14 @@ import java.util.Map;
  * @author Iván Zaera
  */
 @Settings.Config(settingsIds = BlogsConstants.SERVICE_NAME)
-public class BlogsGroupServiceSettings implements GroupServiceSettings {
+public class BlogsGroupServiceSettings {
 
 	public static BlogsGroupServiceSettings getInstance(long groupId)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, BlogsConstants.SERVICE_NAME);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new GroupServiceSettingsLocator(
+				groupId, BlogsConstants.SERVICE_NAME));
 
 		return new BlogsGroupServiceSettings(settings);
 	}
@@ -47,11 +48,17 @@ public class BlogsGroupServiceSettings implements GroupServiceSettings {
 			long groupId, Map<String, String[]> parameterMap)
 		throws PortalException {
 
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			groupId, BlogsConstants.SERVICE_NAME);
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new GroupServiceSettingsLocator(
+				groupId, BlogsConstants.SERVICE_NAME));
 
 		return new BlogsGroupServiceSettings(
 			new ParameterMapSettings(parameterMap, settings));
+	}
+
+	public static void registerSettingsMetadata() {
+		SettingsFactoryUtil.registerSettingsMetadata(
+			BlogsGroupServiceSettings.class, null, _getFallbackKeys());
 	}
 
 	public BlogsGroupServiceSettings(Settings settings) {
@@ -104,6 +111,10 @@ public class BlogsGroupServiceSettings implements GroupServiceSettings {
 
 	public String getEmailFromName() {
 		return _typedSettings.getValue("emailFromName");
+	}
+
+	public int getSmallImageWidth() {
+		return _typedSettings.getIntegerValue("smallImageWidth");
 	}
 
 	public boolean isEmailEntryAddedEnabled() {

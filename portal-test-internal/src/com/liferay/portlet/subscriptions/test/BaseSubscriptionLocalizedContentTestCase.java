@@ -16,6 +16,8 @@ package com.liferay.portlet.subscriptions.test;
 
 import com.dumbster.smtp.MailMessage;
 
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
@@ -23,7 +25,6 @@ import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.Layout;
 import com.liferay.portal.util.test.LayoutTestUtil;
 import com.liferay.portal.util.test.MailServiceTestUtil;
 
@@ -135,8 +136,9 @@ public abstract class BaseSubscriptionLocalizedContentTestCase
 			String bodyPreferenceName)
 		throws Exception {
 
-		Settings settings = SettingsFactoryUtil.getGroupServiceSettings(
-			group.getGroupId(), getServiceName());
+		Settings settings = SettingsFactoryUtil.getSettings(
+			new GroupServiceSettingsLocator(
+				group.getGroupId(), getServiceName()));
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();

@@ -8,16 +8,6 @@
 <tr><td rowspan="1" colspan="3">KaleoFormsAdmin</td></tr>
 </thead>
 <tbody>
-<tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>KaleoFormsAdmin</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
 <!--OPTIONS_MENULIST-->
 <tr>
 	<td>OPTIONS_MENULIST_EXPORT_IMPORT</td>
@@ -43,17 +33,17 @@
 <!--PROCESS_TABLE-->
 <tr>
 	<td>PROCESS_TABLE_NAME</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr[contains(.,'${key_kfProcessName}')]/td[1]/a)[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr[contains(.,'${key_kfProcessName}')]/td[1]//a)[1]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>PROCESS_TABLE_ACTIONS</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr[contains(.,'${key_kfProcessName}')]/td[2]/div/a[@title='Actions'])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr[contains(.,'${key_kfProcessName}')]/td[2]//div/a[@title='Actions'])[1]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>PROCESS_TABLE_ACTIONS_1</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr/td[2]/div/a[@title='Actions'])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_kaleoProcesses')]//tr/td[2]//div/a[@title='Actions'])[1]</td>
 	<td></td>
 </tr>
 <tr>

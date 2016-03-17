@@ -16,21 +16,22 @@ package com.liferay.portlet.documentlibrary.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.document.library.kernel.model.DLContent;
+import com.liferay.document.library.kernel.model.DLContentDataBlobModel;
+import com.liferay.document.library.kernel.model.DLContentModel;
+import com.liferay.document.library.kernel.service.DLContentLocalServiceUtil;
+
+import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.service.ServiceContext;
-
-import com.liferay.portlet.documentlibrary.model.DLContent;
-import com.liferay.portlet.documentlibrary.model.DLContentDataBlobModel;
-import com.liferay.portlet.documentlibrary.model.DLContentModel;
-import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
 
@@ -72,6 +73,19 @@ public class DLContentModelImpl extends BaseModelImpl<DLContent>
 			{ "data_", Types.BLOB },
 			{ "size_", Types.BIGINT }
 		};
+	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
+
+	static {
+		TABLE_COLUMNS_MAP.put("contentId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("repositoryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("path_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("version", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("data_", Types.BLOB);
+		TABLE_COLUMNS_MAP.put("size_", Types.BIGINT);
+	}
+
 	public static final String TABLE_SQL_CREATE = "create table DLContent (contentId LONG not null primary key,groupId LONG,companyId LONG,repositoryId LONG,path_ VARCHAR(255) null,version VARCHAR(75) null,data_ BLOB,size_ LONG)";
 	public static final String TABLE_SQL_DROP = "drop table DLContent";
 	public static final String ORDER_BY_JPQL = " ORDER BY dlContent.version DESC";
@@ -80,20 +94,20 @@ public class DLContentModelImpl extends BaseModelImpl<DLContent>
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
 	public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.entity.cache.enabled.com.liferay.portlet.documentlibrary.model.DLContent"),
+				"value.object.entity.cache.enabled.com.liferay.document.library.kernel.model.DLContent"),
 			true);
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.finder.cache.enabled.com.liferay.portlet.documentlibrary.model.DLContent"),
+				"value.object.finder.cache.enabled.com.liferay.document.library.kernel.model.DLContent"),
 			true);
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-				"value.object.column.bitmask.enabled.com.liferay.portlet.documentlibrary.model.DLContent"),
+				"value.object.column.bitmask.enabled.com.liferay.document.library.kernel.model.DLContent"),
 			true);
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 	public static final long PATH_COLUMN_BITMASK = 2L;
 	public static final long REPOSITORYID_COLUMN_BITMASK = 4L;
 	public static final long VERSION_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
-				"lock.expiration.time.com.liferay.portlet.documentlibrary.model.DLContent"));
+				"lock.expiration.time.com.liferay.document.library.kernel.model.DLContent"));
 
 	public DLContentModelImpl() {
 	}
@@ -529,7 +543,7 @@ public class DLContentModelImpl extends BaseModelImpl<DLContent>
 		StringBundler sb = new StringBundler(28);
 
 		sb.append("<model><model-name>");
-		sb.append("com.liferay.portlet.documentlibrary.model.DLContent");
+		sb.append("com.liferay.document.library.kernel.model.DLContent");
 		sb.append("</model-name>");
 
 		sb.append(

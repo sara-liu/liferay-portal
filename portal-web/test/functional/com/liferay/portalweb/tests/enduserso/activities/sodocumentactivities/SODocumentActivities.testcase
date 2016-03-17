@@ -1,7 +1,7 @@
 <definition component-name="social-office-activities">
 	<property name="hook.plugins.includes" value="deploy-listener-hook,portal-compat-hook,so-activities-hook,so-hook" />
 	<property name="portlet.plugins.includes" value="calendar-portlet,chat-portlet,contacts-portlet,events-display-portlet,marketplace-portlet,microblogs-portlet,notifications-portlet,private-messaging-portlet,so-announcements-portlet,so-configurations-portlet,so-portlet,tasks-portlet,wysiwyg-portlet" />
-	<property name="testray.main.component.name" value="Social Office" />
+	<property name="testray.main.component.name" value="Social Office EE" />
 	<property name="theme.plugins.includes" value="so-theme" />
 	<property name="web.plugins.includes" value="resources-importer-web" />
 
@@ -21,7 +21,7 @@
 		<execute macro="SOUser#tearDownCP" />
 	</tear-down>
 
-	<command name="AddDocumentComment" priority="5">
+	<command name="AddDocumentComment" priority="4">
 		<var name="commentContent" value="DM Document Comment" />
 		<var name="dmDocumentDescription" value="DM Document Description" />
 		<var name="dmDocumentFile" value="Document_1.doc" />
@@ -39,7 +39,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -51,23 +51,25 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
 			<var name="commentContent" value="${commentContent}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="1" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminFirstName}" />
 		</execute>
 
@@ -78,7 +80,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -92,7 +94,7 @@
 		</execute>
 	</command>
 
-	<command name="AddDocumentComments" priority="5">
+	<command name="AddDocumentComments" priority="4">
 		<var name="commentContent1" value="DM Document Comment1" />
 		<var name="commentContent2" value="DM Document Comment2" />
 		<var name="commentContent3" value="DM Document Comment3" />
@@ -157,7 +159,7 @@
 			<var name="userScreenName" value="${userScreenName3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -179,9 +181,8 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
@@ -198,9 +199,8 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
@@ -218,9 +218,8 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
@@ -233,14 +232,17 @@
 			<var name="userLoginFullName" value="${userName1}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="3" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
@@ -270,14 +272,17 @@
 			<var name="userLoginFullName" value="${userName2}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="3" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
@@ -307,14 +312,17 @@
 			<var name="userLoginFullName" value="${userName3}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="3" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
@@ -344,14 +352,17 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="3" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminFirstName}" />
 		</execute>
 
@@ -377,7 +388,7 @@
 		</execute>
 	</command>
 
-	<command name="AddMultipleDocumentsCommentActivities" priority="5">
+	<command name="AddMultipleDocumentsCommentActivities" priority="4">
 		<var name="commentContent" value="DM Document Comment" />
 		<var name="dmDocumentDescription1" value="DM Folder Document1 Description" />
 		<var name="dmDocumentDescription2" value="DM Folder Document2 Description" />
@@ -408,7 +419,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -421,13 +432,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -437,7 +448,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -449,13 +460,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -465,18 +476,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
 			<var name="commentContent" value="${commentContent}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
@@ -484,6 +493,8 @@
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 3 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -510,9 +521,8 @@
 
 		<execute function="AssertTextNotPresent" value1="${commentContent}" />
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="2" />
@@ -531,9 +541,8 @@
 
 		<execute function="AssertTextNotPresent" value1="${commentContent}" />
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="3" />
@@ -553,7 +562,7 @@
 		<execute function="AssertTextNotPresent" value1="${commentContent}" />
 	</command>
 
-	<command name="DeleteDocumentComment" priority="5">
+	<command name="DeleteDocumentComment" priority="4">
 		<var name="commentContent" value="DM Document Comment" />
 		<var name="commentContentEdit" value="DM Document Comment Edit" />
 		<var name="dmDocumentDescription" value="DM Document Description" />
@@ -572,7 +581,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -584,18 +593,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
 			<var name="commentContent" value="${commentContent}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#deleteActivityEntryComment">
@@ -603,19 +610,22 @@
 			<var name="commentCount" value="1" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminFirstName}" />
 		</execute>
 
 		<execute function="AssertTextNotPresent" value1="1 Comment" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -630,7 +640,7 @@
 		<execute function="AssertTextNotPresent" value1="${commentContent}" />
 	</command>
 
-	<command name="EditDocumentComment" priority="5">
+	<command name="EditDocumentComment" priority="4">
 		<var name="commentContent" value="DM Document Comment" />
 		<var name="commentContentEdit" value="DM Document Comment Edit" />
 		<var name="dmDocumentDescription" value="DM Document Description" />
@@ -649,7 +659,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -661,18 +671,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
 			<var name="commentContent" value="${commentContent}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#editActivityEntryComment">
@@ -681,14 +689,17 @@
 			<var name="commentCount" value="1" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
 			<var name="action" value="Uploaded a new document." />
 			<var name="commentCount" value="1" />
+			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
+			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="${adminFirstName}" />
 		</execute>
 
@@ -699,7 +710,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -713,7 +724,7 @@
 		</execute>
 	</command>
 
-	<command name="EditMultipleDocumentsCommentActivities" priority="5">
+	<command name="EditMultipleDocumentsCommentActivities" priority="4">
 		<var name="commentContent" value="DM Document Comment" />
 		<var name="commentContentEdit" value="DM Document Comment Edit" />
 		<var name="dmDocumentDescription1" value="DM Folder Document1 Description" />
@@ -745,7 +756,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -758,13 +769,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -774,7 +785,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -786,13 +797,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -802,18 +813,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#addActivityEntryComment">
 			<var name="commentContent" value="${commentContent}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#editActivityEntryComment">
@@ -822,9 +831,8 @@
 			<var name="commentCount" value="1" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
@@ -832,6 +840,8 @@
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 3 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -858,9 +868,8 @@
 
 		<execute function="AssertTextNotPresent" value1="${commentContentEdit}" />
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="2" />
@@ -879,9 +888,8 @@
 
 		<execute function="AssertTextNotPresent" value1="${commentContentEdit}" />
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="3" />
@@ -901,7 +909,7 @@
 		<execute function="AssertTextNotPresent" value1="${commentContentEdit}" />
 	</command>
 
-	<command name="ViewDMFolderDocumentActivities" priority="5">
+	<command name="ViewDMFolderDocumentActivities" priority="4">
 		<var name="dmDocumentDescription" value="DM Folder Document Description" />
 		<var name="dmDocumentFile" value="Document_1.doc" />
 		<var name="dmDocumentSize" value="22k" />
@@ -921,7 +929,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -934,13 +942,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -949,9 +957,8 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_row" value="01" />
@@ -961,32 +968,33 @@
 		<execute macro="SODocuments#viewPGDocumentDetailView">
 			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
 			<var name="dmDocumentSize" value="${dmDocumentSize}" />
+			<var name="dmDocumentSizeSO" value="${dmDocumentSizeSO}" />
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute function="AssertClick" locator1="SOActivities#ACTIVITIES_ACTION_LINK" value1="${dmFolderName}" />
 
 		<var name="key_dmDocumentTitle" value="${dmDocumentTitle}" />
 
-		<execute function="AssertClick" locator1="PGDocumentsandmedia#ENTRY_ICON_DOCUMENT_TITLE" value1="${dmDocumentTitle}" />
+		<execute function="AssertClick" locator1="DocumentsAndMedia#ICON_DOCUMENT_TITLE" value1="${dmDocumentTitle}" />
 
 		<execute macro="SODocuments#viewPGDocumentDetailView">
 			<var name="dmDocumentDescription" value="${dmDocumentDescription}" />
 			<var name="dmDocumentSize" value="${dmDocumentSize}" />
+			<var name="dmDocumentSizeSO" value="${dmDocumentSizeSO}" />
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 	</command>
 
-	<command name="ViewDMFolderDocumentsActivities" priority="5">
+	<command name="ViewDMFolderDocumentsActivities" priority="4">
 		<var name="dmDocumentDescription1" value="DM Folder Document1 Description" />
 		<var name="dmDocumentDescription2" value="DM Folder Document2 Description" />
 		<var name="dmDocumentDescription3" value="DM Folder Document3 Description" />
@@ -1016,7 +1024,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1029,13 +1037,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1045,7 +1053,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1057,13 +1065,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1073,15 +1081,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 3 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1099,9 +1108,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="2" />
@@ -1118,9 +1126,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="3" />
@@ -1137,7 +1144,7 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1147,15 +1154,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 2 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1173,9 +1181,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="2" />
@@ -1192,13 +1199,13 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1206,9 +1213,8 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
@@ -1219,12 +1225,12 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="1" />
@@ -1244,7 +1250,7 @@
 		</execute>
 	</command>
 
-	<command name="ViewDMFolderDocumentsCommentsActivities" priority="5">
+	<command name="ViewDMFolderDocumentsCommentsActivities" priority="4">
 		<var name="commentBody1" value="DM Folder Document1 Comment Body" />
 		<var name="commentBody2" value="DM Folder Document2 Comment Body" />
 		<var name="commentBody3" value="DM Folder Document3 Comment Body" />
@@ -1277,7 +1283,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1290,13 +1296,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1306,13 +1312,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1321,7 +1327,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1333,7 +1339,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1344,13 +1350,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1360,13 +1366,13 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1375,15 +1381,15 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 3 new documents." />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1392,7 +1398,7 @@
 		<execute function="AssertTextNotPresent" value1="3 Comments" />
 	</command>
 
-	<command name="ViewMoreDMFolderDocumentsActivities" priority="5">
+	<command name="ViewMoreDMFolderDocumentsActivities" priority="4">
 		<var name="dmDocumentDescription1" value="DM Document1 Description" />
 		<var name="dmDocumentDescription2" value="DM Document2 Description" />
 		<var name="dmDocumentDescription3" value="DM Document3 Description" />
@@ -1435,7 +1441,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1447,7 +1453,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1459,7 +1465,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1471,7 +1477,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1483,7 +1489,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle4}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1495,7 +1501,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle5}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1507,15 +1513,16 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle6}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewMultipleDocumentsActivityEntry">
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription6},${dmDocumentDescription5},${dmDocumentDescription4}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle6},${dmDocumentTitle5},${dmDocumentTitle4}" />
 			<var name="documentsAction" value="Uploaded 6 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1527,6 +1534,8 @@
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription6},${dmDocumentDescription5},${dmDocumentDescription4},${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle6},${dmDocumentTitle5},${dmDocumentTitle4},${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 6 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1536,6 +1545,8 @@
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription6},${dmDocumentDescription5},${dmDocumentDescription4}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle6},${dmDocumentTitle5},${dmDocumentTitle4}" />
 			<var name="documentsAction" value="Uploaded 6 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1552,9 +1563,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="2" />
@@ -1571,9 +1581,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="3" />
@@ -1590,9 +1599,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="4" />
@@ -1610,9 +1618,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="5" />
@@ -1630,9 +1637,8 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_documentTitleRow" value="6" />
@@ -1650,7 +1656,7 @@
 			<var name="dmDocumentVersionNumber" value="1.0" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1660,7 +1666,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle6}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1670,7 +1676,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle5}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Documents" />
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
@@ -1680,9 +1686,8 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle4}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute function="AssertElementNotPresent" locator1="SOActivities#ACTIVITIES_VIEW_MORE" />
@@ -1691,6 +1696,8 @@
 			<var name="dmDocumentDescriptionList" value="${dmDocumentDescription3},${dmDocumentDescription2},${dmDocumentDescription1}" />
 			<var name="dmDocumentTitleList" value="${dmDocumentTitle3},${dmDocumentTitle2},${dmDocumentTitle1}" />
 			<var name="documentsAction" value="Uploaded 3 new documents." />
+			<var name="key_documentTitleRow" value="${key_documentTitleRow}" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 	</command>
@@ -1717,7 +1724,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1732,7 +1739,7 @@
 			<var name="dmFolderName" value="${dmFolder2Name}" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolder1Name}" />
 		</execute>
 
@@ -1747,9 +1754,8 @@
 			<var name="dmFolderName" value="${dmFolder2Name}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
@@ -1760,6 +1766,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 	</command>
@@ -1784,7 +1791,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1794,7 +1801,7 @@
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1809,9 +1816,8 @@
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
@@ -1822,11 +1828,12 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 	</command>
 
-	<command known-issues="LPS-45435" name="ViewRemoveDocumentViewPermissionsActivities" priority="4">
+	<command name="ViewRemoveDocumentViewPermissionsActivities" priority="4">
 		<var name="dmDocumentDescription1" value="DM Folder Document 1 Description" />
 		<var name="dmDocumentDescription2" value="DM Folder Document 2 Description" />
 		<var name="dmDocumentFile1" value="Document_1.doc" />
@@ -1863,7 +1870,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1873,12 +1880,12 @@
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1888,12 +1895,12 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1903,12 +1910,12 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName}" />
 		</execute>
 
@@ -1922,9 +1929,8 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
@@ -1935,6 +1941,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 
@@ -1944,7 +1951,7 @@
 		<execute function="AssertTextNotPresent" value1="${dmDocumentTitle2}" />
 	</command>
 
-	<command known-issues="LPS-45435" name="ViewRemoveFolderViewPermissionsActivities" priority="4">
+	<command name="ViewRemoveFolderViewPermissionsActivities" priority="4">
 		<var name="dmDocumentDescription1" value="DM Folder Document 1 Description" />
 		<var name="dmDocumentDescription2" value="DM Folder Document 2 Description" />
 		<var name="dmDocumentFile1" value="Document_1.doc" />
@@ -1983,7 +1990,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1993,12 +2000,12 @@
 			<var name="dmFolderName" value="${dmFolderName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName1}" />
 		</execute>
 
@@ -2008,7 +2015,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2018,12 +2025,12 @@
 			<var name="dmFolderName" value="${dmFolderName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="DMFolder#gotoPG">
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="${dmFolderName2}" />
 		</execute>
 
@@ -2033,7 +2040,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2048,9 +2055,8 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#openURL">
+		<execute macro="Navigator#openSiteURL">
 			<var name="siteName" value="${siteName}" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOActivities#viewDocumentsActivityEntry">
@@ -2061,6 +2067,7 @@
 			<var name="dmDocumentTitle" value="${dmDocumentTitle1}" />
 			<var name="dmDocumentUploader" value="${adminName}" />
 			<var name="dmDocumentVersionNumber" value="1.0" />
+			<var name="siteName" value="${siteName}" />
 			<var name="userName" value="Test" />
 		</execute>
 

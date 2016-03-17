@@ -9,13 +9,13 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
+	<td>GOOGLE_PLUS</td>
+	<td>//li[contains(@class,'taglib-social-bookmark-plusone')]</td>
 	<td></td>
-	<td>SocialBookmarks</td>
 </tr>
 <tr>
-	<td></td>
-	<td></td>
+	<td>TWITTER</td>
+	<td>//li[contains(@class,'taglib-social-bookmark-twitter')]</td>
 	<td></td>
 </tr>
 <!--SOCIAL_BOOKMARKS_CONFIGURATION-->
@@ -27,12 +27,7 @@
 <!--SOCIAL_BOOKMARKS-->
 <tr>
 	<td>SOCIAL_BOOKMARKS_SITE_LINK</td>
-	<td>//span[contains(@class,'social-bookmark')]//span[contains(.,'${key_socialBookmarkSite}')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
+	<td>//a[contains(@class,'social-bookmark')]//span[contains(.,'${key_socialBookmarkSite}')]</td>
 	<td></td>
 </tr>
 </tbody>

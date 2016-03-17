@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>ReportsAdminEditReportEntry</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>REPORT_FORMAT_SELECT</td>
 	<td>//select[contains(@id,'reportsportlet_format')]</td>
 	<td></td>
@@ -41,11 +31,6 @@
 <tr>
 	<td>GENERATE_BUTTON</td>
 	<td>//button[contains(.,'Generate')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
 	<td></td>
 </tr>
 </tbody>

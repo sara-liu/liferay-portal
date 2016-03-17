@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>ContentTargetingEditUserSegment</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>USER_SEGMENT_NAME_FIELD</td>
 	<td>//input[contains(@id,'contenttargetingweb_name')]</td>
 	<td></td>
@@ -46,7 +36,7 @@
 <!--USER_SEGMENT_TABLE_NAME-->
 <tr>
 	<td>USER_SEGMENT_TABLE_CHECKBOX</td>
-	<td>//tr[contains(.,'${key_userSegment}')]//td/input</td>
+	<td>//tr[contains(.,'${key_userSegment}')]//td//input</td>
 	<td></td>
 </tr>
 <tr>
@@ -61,7 +51,7 @@
 </tr>
 <tr>
 	<td>USER_SEGMENT_TABLE_ACTIONS</td>
-	<td>//tr[contains(.,'${key_userSegment}')]//td[4]/div/a[@title='Actions']</td>
+	<td>//tr[contains(.,'${key_userSegment}')]//td[4]//div/a[@title='Actions']</td>
 	<td></td>
 </tr>
 <tr>

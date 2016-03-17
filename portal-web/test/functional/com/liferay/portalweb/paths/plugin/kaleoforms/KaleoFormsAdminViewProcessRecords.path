@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>KaleoFormsAdminViewProcessRecords</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>SUBMIT_NEW</td>
 	<td>//div[contains(@class,'navbar')]//a[@role='menuitem']/span[contains(.,'Submit New')]</td>
 	<td></td>
@@ -46,17 +36,17 @@
 </tr>
 <tr>
 	<td>RECORD_TABLE_AUTHOR</td>
-	<td>//td[@class='table-cell entry-action last']/preceding-sibling::td[contains(.,'${key_kfAuthor}')]</td>
+	<td>//td[@class='table-cell entry-action last']//preceding-sibling::td[contains(.,'${key_kfAuthor}')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>RECORD_TABLE_ACTIONS</td>
-	<td>//tr[contains(.,'${key_kfProcessFieldData}')]/td[@class='table-cell entry-action last']/div/a</td>
+	<td>//tr[contains(.,'${key_kfProcessFieldData}')]/td[@class='table-cell entry-action last']//div/a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>RECORD_TABLE_ACTIONS_1</td>
-	<td>//tr[1]/td[@class='table-cell entry-action last']/div/a</td>
+	<td>//tr[1]/td[@class='table-cell entry-action last']//div/a</td>
 	<td></td>
 </tr>
 <tr>
@@ -94,11 +84,6 @@
 <tr>
 	<td>EXPORT_DIALOG_BOX_OK_BUTTON</td>
 	<td>//div[contains(@class,'kaleo-process-export-dialog')]//button[contains(.,'OK')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
 	<td></td>
 </tr>
 </tbody>

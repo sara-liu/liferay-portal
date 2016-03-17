@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>KaleoFormsAdminEditProcess</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>PROCESS_NAME</td>
 	<td>//h3[contains(@class,'header-title')]/span</td>
 	<td></td>
@@ -139,7 +129,7 @@
 </tr>
 <tr>
 	<td>FIELD_SET_TABLE_ACTIONS</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_kfFieldSetName}')]/td[4]/div/a[@title='Actions'])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmStructures')]//tr[contains(.,'${key_kfFieldSetName}')]/td[4]//div/a[@title='Actions'])[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -147,6 +137,28 @@
 	<td></td>
 	<td></td>
 </tr>
+<!--FIELD_SET_PAGINATION-->
+<tr>
+	<td>FIELD_SET_PAGINATION_SELECTOR_BUTTON</td>
+	<td>//div[@class='lfr-pagination-delta-selector']/div/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_SET_PAGINATION_PREVIOUS_BUTTON</td>
+	<td>//ul[contains(@class,'pagination-buttons')]/li/a[contains(.,'Previous')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_SET_PAGINATION_NEXT_BUTTON</td>
+	<td>//ul[contains(@class,'pagination-buttons')]/li/a[contains(.,'Next')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
 <!--FIELD_SET_MENULIST-->
 <tr>
 	<td>FIELD_SET_MENULIST_EDIT</td>
@@ -224,7 +236,7 @@
 </tr>
 <tr>
 	<td>WORKFLOW_TABLE_ACTIONS</td>
-	<td>//div[contains(@id,'kaleoformsportlet_workflowDefinitions')]//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[3]/div/a[@title='Actions']</td>
+	<td>//div[contains(@id,'kaleoformsportlet_workflowDefinitions')]//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[3]//div/a[@title='Actions']</td>
 	<td></td>
 </tr>
 <tr>
@@ -256,7 +268,7 @@
 </tr>
 <tr>
 	<td>WORKFLOW_UNPUBLISHED_TABLE_ACTIONS</td>
-	<td>//div[contains(@id,'kaleoformsportlet_kaleoDraftDefinitionsSearchContainer')]//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[3]/div/a</td>
+	<td>//div[contains(@id,'kaleoformsportlet_kaleoDraftDefinitionsSearchContainer')]//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[3]//div/a</td>
 	<td></td>
 </tr>
 <tr>
@@ -293,12 +305,7 @@
 </tr>
 <tr>
 	<td>FORMS_TABLE_ASSIGN_FORM_BUTTON</td>
-	<td>//div[contains(@id,'kaleoformsportlet_taskForm')]//tr[contains(.,'${key_workflowTask}')]/td[3]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
+	<td>//div[contains(@id,'kaleoformsportlet_taskForm')]//tr[contains(.,'${key_workflowTask}')]/td[3]//button</td>
 	<td></td>
 </tr>
 </tbody>

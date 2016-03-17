@@ -14,11 +14,11 @@
 
 package com.liferay.portal.kernel.lar.xstream.bundle.xstreamconverterregistryutil;
 
-import com.liferay.portal.kernel.lar.xstream.XStreamConverter;
-import com.liferay.portal.kernel.lar.xstream.XStreamHierarchicalStreamReader;
-import com.liferay.portal.kernel.lar.xstream.XStreamHierarchicalStreamWriter;
-import com.liferay.portal.kernel.lar.xstream.XStreamMarshallingContext;
-import com.liferay.portal.kernel.lar.xstream.XStreamUnmarshallingContext;
+import com.liferay.exportimport.kernel.xstream.XStreamConverter;
+import com.liferay.exportimport.kernel.xstream.XStreamHierarchicalStreamReader;
+import com.liferay.exportimport.kernel.xstream.XStreamHierarchicalStreamWriter;
+import com.liferay.exportimport.kernel.xstream.XStreamMarshallingContext;
+import com.liferay.exportimport.kernel.xstream.XStreamUnmarshallingContext;
 
 import org.osgi.service.component.annotations.Component;
 

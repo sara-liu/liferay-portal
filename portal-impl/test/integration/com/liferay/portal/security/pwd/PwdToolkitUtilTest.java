@@ -14,10 +14,11 @@
 
 package com.liferay.portal.security.pwd;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.pwd.Toolkit;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.security.pwd.bundle.pwdtoolkitutil.TestToolkit;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.test.rule.SyntheticBundleRule;
 import com.liferay.portal.util.test.AtomicState;
 
@@ -37,7 +38,7 @@ public class PwdToolkitUtilTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE,
+			new LiferayIntegrationTestRule(),
 			new SyntheticBundleRule("bundle.pwdtoolkitutil"));
 
 	@BeforeClass
@@ -66,15 +67,10 @@ public class PwdToolkitUtilTest {
 	}
 
 	@Test
-	public void testValidate() {
+	public void testValidate() throws PortalException {
 		_atomicState.reset();
 
-		try {
-			PwdToolkitUtil.validate(1, 1, "passwd", "passwd", null);
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		PwdToolkitUtil.validate(1, 1, "passwd", "passwd", null);
 
 		Assert.assertTrue(_atomicState.isSet());
 	}

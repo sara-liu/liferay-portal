@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.search.facet.util.bundle.facetfactoryutil.TestF
 import com.liferay.portal.kernel.search.facet.util.bundle.facetfactoryutil.TestFacetFactory;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.test.rule.SyntheticBundleRule;
 import com.liferay.portal.util.test.AtomicState;
 
@@ -40,7 +39,7 @@ public class FacetFactoryUtilTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE,
+			new LiferayIntegrationTestRule(),
 			new SyntheticBundleRule("bundle.facetfactoryutil"));
 
 	@BeforeClass
@@ -54,22 +53,17 @@ public class FacetFactoryUtilTest {
 	}
 
 	@Test
-	public void testCreate() {
+	public void testCreate() throws Exception {
 		_atomicState.reset();
 
 		FacetConfiguration facetConfiguration = new FacetConfiguration();
 
 		facetConfiguration.setClassName(TestFacetFactory.class.getName());
 
-		try {
-			Facet facet = FacetFactoryUtil.create(null, facetConfiguration);
+		Facet facet = FacetFactoryUtil.create(null, facetConfiguration);
 
-			Assert.assertTrue(_atomicState.isSet());
-			Assert.assertEquals(facet.getFieldName(), TestFacet.FIELD_NAME);
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertTrue(_atomicState.isSet());
+		Assert.assertEquals(facet.getFieldName(), TestFacet.FIELD_NAME);
 	}
 
 	private static AtomicState _atomicState;

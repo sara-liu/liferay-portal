@@ -19,14 +19,13 @@
 <%
 String[] classNames = (String[])request.getAttribute("liferay-ui:my_sites:classNames");
 String cssClass = GetterUtil.getString((String)request.getAttribute("liferay-ui:my_sites:cssClass"));
-boolean includeControlPanel = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:my_sites:includeControlPanel"));
 int max = GetterUtil.getInteger((String)request.getAttribute("liferay-ui:my_sites:max"));
 
 if (max <= 0) {
 	max = PropsValues.MY_SITES_MAX_ELEMENTS;
 }
 
-List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel, max);
+List<Group> mySiteGroups = user.getMySiteGroups(classNames, max);
 %>
 
 <c:if test="<%= !mySiteGroups.isEmpty() %>">
@@ -115,28 +114,20 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 							%>
 
 							<li class="<%= (selectedSite && layout.isPublicLayout()) ? "active" : "public-site" %> <%= itemCssClass %>">
-								<a href="<%= HtmlUtil.escape(siteGroup.getDisplayURL(themeDisplay, false)) %>" onclick="Liferay.Util.forcePost(this); return false;">
+								<a href="<%= HtmlUtil.escape(siteGroup.getDisplayURL(themeDisplay, false)) %>" onclick="Liferay.Util.forcePost(this); return false;" role="menuitem">
 
 									<%
 									String siteName = StringPool.BLANK;
 
 									if (mySiteGroup.isUser()) {
-										siteName = LanguageUtil.get(request, "my-profile");
+										siteName = LanguageUtil.get(resourceBundle, "my-profile");
 									}
 									else {
 										siteName = mySiteGroup.getDescriptiveName(locale);
 									}
 
 									if (showPublicSiteStaging) {
-										StringBundler sb = new StringBundler(5);
-
-										sb.append(HtmlUtil.escape(siteName));
-										sb.append(StringPool.SPACE);
-										sb.append(StringPool.OPEN_PARENTHESIS);
-										sb.append(LanguageUtil.get(request, "staging"));
-										sb.append(StringPool.CLOSE_PARENTHESIS);
-
-										siteName = sb.toString();
+										siteName = StringUtil.appendParentheticalSuffix(siteName, LanguageUtil.get(resourceBundle, "staging"));
 									}
 
 									if ((mySiteGroup.getPrivateLayoutsPageCount() > 0) || showPrivateSiteStaging) {
@@ -164,28 +155,20 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 							%>
 
 							<li class="<%= (selectedSite && layout.isPrivateLayout()) ? "active" : "private-site" %> <%= itemCssClass %>">
-								<a href="<%= HtmlUtil.escape(siteGroup.getDisplayURL(themeDisplay, true)) %>" onclick="Liferay.Util.forcePost(this); return false;">
+								<a href="<%= HtmlUtil.escape(siteGroup.getDisplayURL(themeDisplay, true)) %>" onclick="Liferay.Util.forcePost(this); return false;" role="menuitem">
 
 									<%
 									String siteName = StringPool.BLANK;
 
 									if (mySiteGroup.isUser()) {
-										siteName = LanguageUtil.get(request, "my-dashboard");
+										siteName = LanguageUtil.get(resourceBundle, "my-dashboard");
 									}
 									else {
 										siteName = mySiteGroup.getDescriptiveName(locale);
 									}
 
 									if (showPrivateSiteStaging) {
-										StringBundler sb = new StringBundler(5);
-
-										sb.append(siteName);
-										sb.append(StringPool.SPACE);
-										sb.append(StringPool.OPEN_PARENTHESIS);
-										sb.append(LanguageUtil.get(request, "staging"));
-										sb.append(StringPool.CLOSE_PARENTHESIS);
-
-										siteName = sb.toString();
+										siteName = StringUtil.appendParentheticalSuffix(siteName, LanguageUtil.get(resourceBundle, "staging"));
 									}
 
 									if ((mySiteGroup.getPublicLayoutsPageCount() > 0) || showPublicSiteStaging) {
@@ -208,14 +191,9 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 						String publicAddPageHREF = null;
 						String privateAddPageHREF = null;
 
-						if (mySiteGroup.isSite() && GroupPermissionUtil.contains(permissionChecker, mySiteGroup, ActionKeys.ADD_LAYOUT)) {
-							publicAddPageHREF = mySiteGroup.getDisplayURL(themeDisplay, false);
-							privateAddPageHREF = mySiteGroup.getDisplayURL(themeDisplay, true);
-						}
-						else if (mySiteGroup.isUser()) {
-							PortletURL publicAddPageURL = new PortletURLImpl(request, PortletKeys.MY_ACCOUNT, plid, PortletRequest.RENDER_PHASE);
+						if ((mySiteGroup.isSite() || mySiteGroup.isUser()) && GroupPermissionUtil.contains(permissionChecker, mySiteGroup, ActionKeys.ADD_LAYOUT)) {
+							PortletURL publicAddPageURL = PortletProviderUtil.getPortletURL(request, Layout.class.getName(), PortletProvider.Action.VIEW);
 
-							publicAddPageURL.setParameter("struts_action", "/my_account/edit_layouts");
 							publicAddPageURL.setParameter("tabs1", "public-pages");
 							publicAddPageURL.setParameter("redirect", currentURL);
 							publicAddPageURL.setParameter("groupId", String.valueOf(mySiteGroup.getGroupId()));
@@ -224,9 +202,8 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 
 							publicAddPageHREF = publicAddPageURL.toString();
 
-							PortletURL privateAddPageURL = new PortletURLImpl(request, PortletKeys.MY_ACCOUNT, plid, PortletRequest.RENDER_PHASE);
+							PortletURL privateAddPageURL = PortletProviderUtil.getPortletURL(request, Layout.class.getName(), PortletProvider.Action.EDIT);
 
-							privateAddPageURL.setParameter("struts_action", "/my_account/edit_layouts");
 							privateAddPageURL.setParameter("tabs1", "private-pages");
 							privateAddPageURL.setParameter("redirect", currentURL);
 							privateAddPageURL.setParameter("groupId", String.valueOf(mySiteGroup.getGroupId()));
@@ -277,14 +254,16 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 													id="my-site-public-pages"
 												</c:if>
 
-												<c:if test="<%= (mySiteGroup.getPublicLayoutsPageCount() > 0) %>">
+												<c:if test="<%= mySiteGroup.getPublicLayoutsPageCount() > 0 %>">
 													onclick="Liferay.Util.forcePost(this); return false;"
 												</c:if>
+
+												role="menuitem"
 
 												><liferay-ui:message key="public-pages" /> <span class="page-count">(<%= mySiteGroup.getPublicLayoutsPageCount() %>)</span></a>
 
 												<c:if test="<%= publicAddPageHREF != null %>">
-													<a class="add-page" href="<%= HtmlUtil.escape(publicAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;"><liferay-ui:message key="manage-pages" /></a>
+													<a class="add-page" href="<%= HtmlUtil.escape(publicAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;" role="menuitem"><liferay-ui:message key="manage-pages" /></a>
 												</c:if>
 											</li>
 										</c:if>
@@ -301,10 +280,12 @@ List<Group> mySiteGroups = user.getMySiteGroups(classNames, includeControlPanel,
 													onclick="Liferay.Util.forcePost(this); return false;"
 												</c:if>
 
+												role="menuitem"
+
 												><liferay-ui:message key="private-pages" /> <span class="page-count">(<%= mySiteGroup.getPrivateLayoutsPageCount() %>)</span></a>
 
 												<c:if test="<%= privateAddPageHREF != null %>">
-													<a class="add-page" href="<%= HtmlUtil.escape(privateAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;"><liferay-ui:message key="manage-pages" /></a>
+													<a class="add-page" href="<%= HtmlUtil.escape(privateAddPageHREF) %>" onclick="Liferay.Util.forcePost(this); return false;" role="menuitem"><liferay-ui:message key="manage-pages" /></a>
 												</c:if>
 											</li>
 										</c:if>

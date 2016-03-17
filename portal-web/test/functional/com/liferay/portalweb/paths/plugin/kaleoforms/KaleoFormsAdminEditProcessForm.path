@@ -9,16 +9,6 @@
 </thead>
 <tbody>
 <tr>
-	<td>PAGE_NAME</td>
-	<td></td>
-	<td>KaleoFormsAdminEditProcessForm</td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
 	<td>ADD_FORM_BUTTON</td>
 	<td>//button[contains(.,'Add Form')]</td>
 	<td></td>
@@ -41,7 +31,7 @@
 </tr>
 <tr>
 	<td>FORM_TABLE_ACTIONS</td>
-	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmTemplates')]//tr[contains(.,'${key_kfFormName}')]/td[3]/div/a[@title='Actions'])[1]</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmTemplates')]//tr[contains(.,'${key_kfFormName}')]/td[3]//div/a[@title='Actions'])[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,11 +53,6 @@
 <tr>
 	<td>FORM_MENULIST_DELETE</td>
 	<td>//a[@role='menuitem' and contains(.,'Delete')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
 	<td></td>
 </tr>
 </tbody>

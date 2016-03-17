@@ -14,15 +14,15 @@
 
 package com.liferay.portal.kernel.notification;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.UserNotificationEvent;
 import com.liferay.portal.kernel.notification.bundle.usernotificationmanagerutil.TestUserNotificationHandler;
 import com.liferay.portal.kernel.notifications.UserNotificationFeedEntry;
 import com.liferay.portal.kernel.notifications.UserNotificationHandler;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.model.UserNotificationEvent;
 import com.liferay.portal.model.impl.UserNotificationEventImpl;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.test.rule.MainServletTestRule;
 import com.liferay.portal.test.rule.SyntheticBundleRule;
 
 import java.util.Map;
@@ -41,7 +41,7 @@ public class UserNotificationManagerUtilTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new AggregateTestRule(
-			new LiferayIntegrationTestRule(), MainServletTestRule.INSTANCE,
+			new LiferayIntegrationTestRule(),
 			new SyntheticBundleRule("bundle.usernotificationmanagerutil"));
 
 	@Test
@@ -72,26 +72,20 @@ public class UserNotificationManagerUtilTest {
 	}
 
 	@Test
-	public void testInterpret() {
-		try {
-			UserNotificationEvent userNotificationEvent =
-				new UserNotificationEventImpl();
+	public void testInterpret() throws PortalException {
+		UserNotificationEvent userNotificationEvent =
+			new UserNotificationEventImpl();
 
-			userNotificationEvent.setType(
-				TestUserNotificationHandler.PORTLET_ID);
+		userNotificationEvent.setType(TestUserNotificationHandler.PORTLET_ID);
 
-			UserNotificationFeedEntry userNotificationFeedEntry =
-				UserNotificationManagerUtil.interpret(
-					TestUserNotificationHandler.SELECTOR, userNotificationEvent,
-					null);
+		UserNotificationFeedEntry userNotificationFeedEntry =
+			UserNotificationManagerUtil.interpret(
+				TestUserNotificationHandler.SELECTOR, userNotificationEvent,
+				null);
 
-			Assert.assertEquals(
-				TestUserNotificationHandler.LINK,
-				userNotificationFeedEntry.getLink());
-		}
-		catch (Exception e) {
-			Assert.fail();
-		}
+		Assert.assertEquals(
+			TestUserNotificationHandler.LINK,
+			userNotificationFeedEntry.getLink());
 	}
 
 	@Test
@@ -104,7 +98,7 @@ public class UserNotificationManagerUtilTest {
 			Assert.assertTrue(deliver);
 		}
 		catch (Exception e) {
-			Assert.fail();
+			throw new Error(e);
 		}
 	}
 

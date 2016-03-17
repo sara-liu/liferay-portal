@@ -1,7 +1,7 @@
 <definition component-name="social-office-collaboration">
 	<property name="hook.plugins.includes" value="deploy-listener-hook,portal-compat-hook,so-activities-hook,so-hook" />
 	<property name="portlet.plugins.includes" value="calendar-portlet,chat-portlet,contacts-portlet,events-display-portlet,marketplace-portlet,microblogs-portlet,notifications-portlet,private-messaging-portlet,so-announcements-portlet,so-configurations-portlet,so-portlet,tasks-portlet,wysiwyg-portlet" />
-	<property name="testray.main.component.name" value="Social Office" />
+	<property name="testray.main.component.name" value="Social Office EE" />
 	<property name="theme.plugins.includes" value="so-theme" />
 	<property name="web.plugins.includes" value="resources-importer-web" />
 
@@ -41,7 +41,7 @@
 		<var name="threadSubject2" value="MB Category 2 Thread 2 Message Subject" />
 		<var name="threadSubject3" value="MB Category 3 Thread 3 Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -50,7 +50,7 @@
 			<var name="categoryName" value="${categoryName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -64,12 +64,13 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName1}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -80,7 +81,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -89,7 +90,7 @@
 			<var name="categoryName" value="${categoryName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -103,12 +104,13 @@
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName2}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -119,7 +121,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -128,7 +130,7 @@
 			<var name="categoryName" value="${categoryName3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -142,12 +144,13 @@
 			<var name="threadSubject" value="${threadSubject3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName3}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -164,21 +167,22 @@
 		<var name="categoryName" value="MB Category Name" />
 		<var name="categoryNullName" value=" " />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="MessageboardsCategory#addNullPG">
+			<var name="categoryDescription" value="${categoryDescription}" />
 			<var name="categoryNullName" value="${categoryNullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute function="AssertTextEquals#assertText" locator1="PGMessageboards#INFO_MESSAGE_THREAD" value1="There are no threads in this category." />
+		<execute function="AssertTextEquals#assertText" locator1="Message#INFO" value1="There are no threads in this category." />
 	</command>
 
 	<command name="AddMBCategorySubcategoryNullName" priority="3">
@@ -186,7 +190,7 @@
 		<var name="subCategoryDescription" value="MB Subcategory Description" />
 		<var name="subCategoryNullName" value=" " />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -195,7 +199,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -206,7 +210,7 @@
 			<var name="subCategoryNullName" value="${subCategoryNullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -216,7 +220,7 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategorySubcategoryThread" priority="5">
+	<command name="AddMBCategorySubcategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="subCategoryDescription" value="MB Subcategory Description" />
 		<var name="subCategoryEnabled" value="true" />
@@ -224,7 +228,7 @@
 		<var name="threadBody" value="MB Thread Message Body" />
 		<var name="threadSubject" value="MB Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -233,7 +237,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -244,7 +248,7 @@
 			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -260,7 +264,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -268,9 +272,11 @@
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
 			<var name="subCategoryEnabled" value="false" />
+			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewSubcategoryPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="subCategoryEnabled" value="${subCategoryEnabled}" />
@@ -281,12 +287,12 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThread" priority="5">
+	<command name="AddMBCategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -295,7 +301,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -309,12 +315,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -323,12 +330,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -337,12 +345,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -352,12 +361,12 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadAnonymous" priority="5">
+	<command name="AddMBCategoryThreadAnonymous" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -366,7 +375,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -375,18 +384,18 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="anonymous" value="true" />
+		<execute macro="MessageboardsThread#addPGAsAnonymous">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="anonymous" value="true" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
@@ -396,12 +405,13 @@
 			<var name="userName" value="Anonymous" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="anonymous" value="true" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
@@ -411,12 +421,13 @@
 			<var name="userName" value="Anonymous" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="anonymous" value="true" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
@@ -427,14 +438,14 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadAttachment" priority="5">
+	<command name="AddMBCategoryThreadAttachment" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="mbThreadAttachment" value="Document_1.doc" />
 		<var name="mbThreadAttachmentFileSize" value="22k" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -443,7 +454,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -452,19 +463,20 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
+		<execute macro="MessageboardsThread#addPGWithAttachment">
 			<var name="mbThreadAttachment" value="${mbThreadAttachment}" />
 			<var name="mbThreadAttachmentFileSize" value="${mbThreadAttachmentFileSize}" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="attachmentFileName1" value="${attachmentFileName1}" />
 			<var name="attachmentFileSize1" value="${attachmentFileSize1}" />
 			<var name="categoryName" value="${categoryName}" />
@@ -477,12 +489,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="mbThreadAttachment" value="${mbThreadAttachment}" />
 			<var name="mbThreadAttachmentFileSize" value="${mbThreadAttachmentFileSize}" />
@@ -493,12 +506,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="mbThreadAttachment" value="${mbThreadAttachment}" />
 			<var name="mbThreadAttachmentFileSize" value="${mbThreadAttachmentFileSize}" />
@@ -515,7 +529,7 @@
 		<var name="threadBody" value="[code]MB Category Thread Message Body[/code]" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -524,7 +538,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -538,7 +552,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -549,7 +563,7 @@
 
 		<var name="key_threadSubject" value="${threadSubject}" />
 
-		<execute function="AssertClick" locator1="PGMessageboards#THREAD_TABLE_THREAD" value1="${threadSubject}" />
+		<execute function="AssertClick" locator1="MessageBoards#THREAD_LIST_THREAD" value1="${threadSubject}" />
 
 		<execute function="SikuliAssertElementPresent" locator1="SOForums#SCREENSHOTS_FORUMS_THREAD_BODY_CODE_PNG" />
 	</command>
@@ -560,7 +574,7 @@
 		<var name="threadReplyBody" value="MB Category Thread Message Reply Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -569,7 +583,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -578,13 +592,12 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="markAsQuestion" value="true" />
+		<execute macro="MessageboardsThread#addPGAsQuestion">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -600,7 +613,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -611,18 +624,19 @@
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody}" />
+			<var name="threadReplyBody" value="${threadReplyBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadQuickReply" priority="5">
+	<command name="AddMBCategoryThreadQuickReply" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadReplyBody" value="MB Category Thread Message Reply Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -631,7 +645,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -645,7 +659,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -660,12 +674,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="categoryPostCount" value="2" />
 			<var name="pageName" value="${pageName}" />
@@ -676,12 +691,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -691,12 +707,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -706,7 +723,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -723,7 +740,7 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadReplySOUser" priority="5">
+	<command name="AddMBCategoryThreadReplySOUser" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadReplyBody" value="MB Category Thread Message Reply Body" />
@@ -745,7 +762,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -764,12 +781,12 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#ADD_CATEGORY_BUTTON" />
+		<execute function="AssertElementNotPresent" locator1="MessageBoards#ADD_CATEGORY_BUTTON" />
 
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
@@ -780,7 +797,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -795,12 +812,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -810,12 +828,13 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -825,7 +844,7 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -844,13 +863,13 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadReplyWithQuote" priority="5">
+	<command name="AddMBCategoryThreadReplyWithQuote" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadReplyBody" value="MB Category Thread Message Reply Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -859,7 +878,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -873,7 +892,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -888,12 +907,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -903,12 +923,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -918,7 +939,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -949,7 +970,7 @@
 		<var name="threadSubject2" value="MB Category 1 Thread 2 Message Subject" />
 		<var name="threadSubject3" value="MB Category 1 Thread 3 Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -958,7 +979,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -972,7 +993,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -986,7 +1007,7 @@
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1000,50 +1021,59 @@
 			<var name="threadSubject" value="${threadSubject3}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody1}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject1}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody2}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject2}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody3}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject3}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadSOUser" priority="5">
+	<command name="AddMBCategoryThreadSOUser" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
@@ -1064,7 +1094,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1083,12 +1113,12 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#ADD_CATEGORY_BUTTON" />
+		<execute function="AssertElementNotPresent" locator1="MessageBoards#ADD_CATEGORY_BUTTON" />
 
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
@@ -1099,12 +1129,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteMember" value="true" />
@@ -1114,12 +1145,13 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1128,12 +1160,13 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1143,13 +1176,13 @@
 		</execute>
 	</command>
 
-	<command known-issues="LPS-49497" name="AddMBCategoryThreadSticky" priority="3">
+	<command name="AddMBCategoryThreadSticky" priority="3">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadPriority" value="Sticky" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1158,7 +1191,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1167,19 +1200,19 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="priority" value="true" />
+		<execute macro="MessageboardsThread#addPGWithPriority">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadPriority" value="${threadPriority}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1189,12 +1222,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -1205,12 +1239,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -1228,7 +1263,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1237,7 +1272,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1246,19 +1281,19 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
+		<execute macro="MessageboardsThread#addTagPGCmd">
 			<var name="tagName" value="${tagName}" />
-			<var name="threadAddTag" value="true" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1270,13 +1305,13 @@
 		</execute>
 	</command>
 
-	<command known-issues="LPS-49497" name="AddMBCategoryThreadUrgent" priority="3">
+	<command name="AddMBCategoryThreadUrgent" priority="3">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadPriority" value="Urgent" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1285,7 +1320,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1294,19 +1329,19 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="priority" value="true" />
+		<execute macro="MessageboardsThread#addPGWithPriority">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadPriority" value="${threadPriority}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1316,12 +1351,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -1332,12 +1368,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -1349,12 +1386,12 @@
 		</execute>
 	</command>
 
-	<command name="AddMBCategoryThreadUTF8" priority="5">
+	<command name="AddMBCategoryThreadUTF8" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Thrèad Mèssagè Body" />
 		<var name="threadSubject" value="MB Thrèad Mèssagè Subjèct" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1363,7 +1400,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1377,7 +1414,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1389,7 +1426,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
@@ -1400,7 +1436,7 @@
 		</execute>
 	</command>
 
-	<command known-issues="LPS-25584" name="AddMBCategoryThreadViewableBySiteMembers" priority="4">
+	<command name="AddMBCategoryThreadViewableBySiteMembers" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody1" value="MB Category Thread 1 Message Body" />
 		<var name="threadBody2" value="MB Category Thread 2 Message Body" />
@@ -1433,7 +1469,7 @@
 			<var name="userScreenName" value="${userScreenName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1442,7 +1478,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1456,7 +1492,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1477,12 +1513,13 @@
 			<var name="userLoginFullName" value="${userName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="1" />
@@ -1493,7 +1530,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1514,12 +1551,13 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -1531,12 +1569,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="postCount" value="2" />
@@ -1554,7 +1593,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1563,7 +1602,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1598,7 +1637,7 @@
 		<var name="threadBody" value="" />
 		<var name="threadSubject" value="MB Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1608,7 +1647,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1640,7 +1679,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1659,12 +1698,12 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1683,12 +1722,13 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -1702,7 +1742,7 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1716,7 +1756,7 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1728,7 +1768,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1742,12 +1782,13 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteMember" value="true" />
@@ -1758,10 +1799,10 @@
 		</execute>
 	</command>
 
-	<command name="DeleteMBCategory" priority="5">
+	<command name="DeleteMBCategory" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1774,7 +1815,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1782,7 +1823,7 @@
 		<execute macro="MessageboardsCategory#viewDefaultPG" />
 	</command>
 
-	<command name="DeleteMBCategorySubcategoryThread" priority="5">
+	<command name="DeleteMBCategorySubcategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="subCategoryDescription" value="MB Subcategory Description" />
 		<var name="subCategoryEnabled" value="true" />
@@ -1790,7 +1831,7 @@
 		<var name="threadBody" value="MB Thread Message Body" />
 		<var name="threadSubject" value="MB Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1799,7 +1840,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1810,7 +1851,7 @@
 			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1826,7 +1867,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1841,7 +1882,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1849,26 +1890,27 @@
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
 			<var name="subCategoryEnabled" value="false" />
+			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
 		<var name="key_subCategoryName" value="${subCategoryName}" />
 
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#SUBCATEGORY_TABLE_CATEGORY" value1="${subCategoryName}" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#SUBCATEGORY_TABLE_CATEGORIES" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#SUBCATEGORY_TABLE_THREADS" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#SUBCATEGORY_TABLE_POSTS" value1="0" />
-		<execute function="AssertClick" locator1="PGMessageboardsCategory#SUBCATEGORY_TABLE_CATEGORY" value1="${subCategoryName}" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#SUBCATEGORY_TABLE_CATEGORY" value1="${subCategoryName}" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#SUBCATEGORY_TABLE_CATEGORIES" value1="0" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#SUBCATEGORY_TABLE_THREADS" value1="0" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#SUBCATEGORY_TABLE_POSTS" value1="0" />
+		<execute function="AssertClick" locator1="MessageBoards#SUBCATEGORY_TABLE_CATEGORY" value1="${subCategoryName}" />
 
-		<execute function="AssertTextEquals#assertText" locator1="PGMessageboardsCategory#INFO_MESSAGE_THREAD" value1="There are no threads in this category." />
+		<execute function="AssertTextEquals#assertText" locator1="Message#INFO_LINK" value1="There are no threads in this category." />
 		<execute function="AssertTextNotPresent" value1="${threadSubject}" />
 	</command>
 
-	<command name="DeleteMBCategoryThread" priority="5">
+	<command name="DeleteMBCategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1877,7 +1919,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1891,7 +1933,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1904,24 +1946,24 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<var name="key_categoryName" value="${categoryName}" />
 
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_TABLE_CATEGORY" value1="${categoryName}" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_TABLE_CATEGORIES" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_TABLE_THREADS" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_TABLE_POSTS" value1="0" />
-		<execute function="AssertClick" locator1="PGMessageboards#CATEGORY_TABLE_CATEGORY" value1="${categoryName}" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#CATEGORY_LIST_CATEGORY" value1="${categoryName}" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#CATEGORY_TABLE_CATEGORIES" value1="0" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#CATEGORY_TABLE_THREADS" value1="0" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#CATEGORY_TABLE_POSTS" value1="0" />
+		<execute function="AssertClick" locator1="MessageBoards#CATEGORY_LIST_CATEGORY" value1="${categoryName}" />
 
-		<execute function="AssertTextEquals#assertText" locator1="PGMessageboards#INFO_MESSAGE_THREAD" value1="There are no threads in this category." />
+		<execute function="AssertTextEquals#assertText" locator1="Message#INFO" value1="There are no threads in this category." />
 		<execute function="AssertTextNotPresent" value1="${threadSubject}" />
 	</command>
 
-	<command name="EditMBCategorySubcategoryThread" priority="5">
+	<command name="EditMBCategorySubcategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="subCategoryDescription" value="MB Subcategory Description" />
 		<var name="subCategoryEnabled" value="true" />
@@ -1931,7 +1973,7 @@
 		<var name="threadSubject" value="MB Thread Message Subject" />
 		<var name="threadSubjectEdit" value="MB Thread Message Subject Edit" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1940,7 +1982,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1951,7 +1993,7 @@
 			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1967,7 +2009,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1981,16 +2023,16 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
 		<execute macro="MessageboardsThread#editPG">
 			<var name="threadBodyEdit" value="${threadBodyEdit}" />
+			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -1998,9 +2040,11 @@
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
 			<var name="subCategoryEnabled" value="false" />
+			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewSubcategoryPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="subCategoryEnabled" value="${subCategoryEnabled}" />
@@ -2011,14 +2055,14 @@
 		</execute>
 	</command>
 
-	<command name="EditMBCategoryThread" priority="5">
+	<command name="EditMBCategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadBodyEdit" value="MB Category Thread Message Body Edit" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 		<var name="threadSubjectEdit" value="MB Category Thread Message Subject Edit" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2027,7 +2071,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2041,7 +2085,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2053,21 +2097,22 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
 		<execute macro="MessageboardsThread#editPG">
 			<var name="threadBodyEdit" value="${threadBodyEdit}" />
+			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2106,7 +2151,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2115,7 +2160,7 @@
 			<var name="categoryName" value="${categoryName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2133,7 +2178,7 @@
 			<var name="ratingType" value="Positive" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2148,7 +2193,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2163,7 +2208,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2173,7 +2218,7 @@
 			<var name="displayStyle" value="Question" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2182,14 +2227,13 @@
 			<var name="categoryName" value="${categoryName2}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
+		<execute macro="MessageboardsThread#addTagPGCmd">
 			<var name="tagNameList" value="${tagName1},${tagName2}" />
-			<var name="threadAddTag" value="true" />
 			<var name="threadBody" value="${threadBody2}" />
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2221,7 +2265,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2233,12 +2277,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName1}" />
 			<var name="categoryPostCount" value="3" />
 			<var name="messageRating1" value="+1" />
@@ -2251,12 +2296,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName2}" />
 			<var name="displayStyle" value="Question" />
 			<var name="pageName" value="${pageName}" />
@@ -2279,12 +2325,13 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName1}" />
 			<var name="categoryPostCount" value="3" />
 			<var name="messageRating1" value="+1" />
@@ -2297,12 +2344,13 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName2}" />
 			<var name="displayStyle" value="Question" />
 			<var name="pageName" value="${pageName}" />
@@ -2321,12 +2369,12 @@
 		</execute>
 	</command>
 
-	<command name="LockMBCategoryThread" priority="5">
+	<command name="LockMBCategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2335,7 +2383,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2349,7 +2397,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2362,12 +2410,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2376,7 +2425,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2387,6 +2436,7 @@
 
 		<execute macro="MessageboardsThread#viewLockedPG">
 			<var name="threadBody" value="${threadBody}" />
+			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 	</command>
 
@@ -2402,7 +2452,7 @@
 		<var name="threadCount" value="1" />
 		<var name="threadSubject" value="MB Category 1 Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2411,7 +2461,7 @@
 			<var name="categoryName" value="${categoryName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2425,7 +2475,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2434,7 +2484,7 @@
 			<var name="categoryName" value="${categoryName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2445,21 +2495,23 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName2}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2476,7 +2528,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2485,7 +2537,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2499,7 +2551,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2509,7 +2561,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2521,7 +2573,7 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2538,7 +2590,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2547,7 +2599,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2556,13 +2608,13 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="preview" value="true" />
+		<execute macro="MessageboardsThread#previewAddPG">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
+			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2577,12 +2629,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2598,7 +2651,7 @@
 		<var name="threadBodyEdit" value="MB Category Thread Message Body Edit" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2607,7 +2660,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2621,7 +2674,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2637,7 +2690,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2652,12 +2705,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2677,7 +2731,7 @@
 		<var name="threadReplyBody3" value="MB Category Thread Message Reply Body 3" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2686,7 +2740,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2700,7 +2754,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2715,7 +2769,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2730,7 +2784,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2745,14 +2799,16 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewReplyPG">
 			<var name="categoryName" value="${categoryName}" />
+			<var name="categoryPostCount" value="${categoryPostCount}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="replyNumber" value="2" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody}" />
@@ -2761,14 +2817,16 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewReplyPG">
 			<var name="categoryName" value="${categoryName}" />
+			<var name="categoryPostCount" value="${categoryPostCount}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="replyNumber" value="3" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody}" />
@@ -2777,14 +2835,16 @@
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewReplyPG">
 			<var name="categoryName" value="${categoryName}" />
+			<var name="categoryPostCount" value="${categoryPostCount}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="replyNumber" value="4" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody}" />
@@ -2794,13 +2854,13 @@
 		</execute>
 	</command>
 
-	<command name="ReplyMBCategoryThread" priority="5">
+	<command name="ReplyMBCategoryThread" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadReplyBody" value="MB Category Thread Message Reply Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2809,7 +2869,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2823,7 +2883,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2838,7 +2898,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2859,7 +2919,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2868,7 +2928,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2877,13 +2937,13 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="MessageboardsThread#addPG">
-			<var name="saveAsDraft" value="true" />
+		<execute macro="MessageboardsThread#saveNewThreadAsDraft">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
+			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2898,12 +2958,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2919,7 +2980,7 @@
 		<var name="threadBodyEdit" value="MB Category Thread Message Body Edit" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2928,7 +2989,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2942,7 +3003,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2958,7 +3019,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -2973,12 +3034,13 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName}" />
@@ -2993,7 +3055,7 @@
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3002,7 +3064,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3016,7 +3078,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3026,7 +3088,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3036,7 +3098,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3047,23 +3109,23 @@
 		</execute>
 	</command>
 
-	<command name="SubscribeToSOCategoryThreadAndViewEntryInGmail" priority="5">
+	<command name="SubscribeToSOCategoryThreadAndViewEntryInGmail" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
-		<var name="userEmailAddress" property-value="email.address.2" />
+		<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
 		<var name="userFirstName" value="Social01" />
 		<var name="userLastName" value="User01" />
 		<var name="userMiddleName" value="Office01" />
 		<var name="userScreenName" value="socialoffice01" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Server Administration" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Server Administration" />
 		</execute>
 
 		<execute macro="ServerAdministration#configureMailServerSettings">
-			<var name="userName" property-value="email.address.1" />
-			<var name="userPassword" property-value="email.password.1" />
+			<var method="TestPropsUtil#get('email.address.1')" name="userName" />
+			<var method="TestPropsUtil#get('email.password.1')" name="userPassword" />
 		</execute>
 
 		<execute macro="SOUser#addUserWithSORole">
@@ -3074,7 +3136,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3088,7 +3150,7 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3097,7 +3159,7 @@
 			<var name="siteName" value="${siteName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3111,7 +3173,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3133,8 +3195,8 @@
 		<execute function="Pause" locator1="30000" />
 
 		<execute macro="Gmail#login">
-			<var name="userEmailAddress" property-value="email.address.2" />
-			<var name="userPassword" property-value="email.password.2" />
+			<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
+			<var method="TestPropsUtil#get('email.password.2')" name="userPassword" />
 		</execute>
 
 		<execute macro="Gmail#gotoHtmlMode" />
@@ -3154,18 +3216,18 @@
 		<var locator="Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_LINK_1" name="messageBoardsThreadURL" />
 
 		<execute macro="Gmail#tearDown">
-			<var name="userEmailAddress" property-value="email.address.2" />
-			<var name="userPassword" property-value="email.address.2" />
+			<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
+			<var method="TestPropsUtil#get('email.address.2')" name="userPassword" />
 		</execute>
 
 		<execute function="Open" locator1="${messageBoardsThreadURL}" />
 
 		<execute function="Pause" locator1="1000" />
 
-		<execute function="AssertTextEquals" locator1="PGMessageboardsThread#TITLE_HEADER" value1="${threadSubject}" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsThread#MESSAGE_USERNAME_1" value1="${adminName}" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsThread#MESSAGE_SUBJECT_1" value1="${threadSubject}" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsThread#MESSAGE_BODY_1" value1="${threadBody}" />
+		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="${threadSubject}" />
+		<execute function="AssertTextEquals#assertPartialText" locator1="MessageBoardsThread#THREAD_USERNAME" value1="${adminName}" />
+		<execute function="AssertTextEquals" locator1="MessageBoardsThread#THREAD_SUBJECT" value1="${threadSubject}" />
+		<execute function="AssertTextEquals" locator1="MessageBoardsThread#MESSAGE_BODY_1" value1="${threadBody}" />
 	</command>
 
 	<command name="UserFlagsSOCategoryThreadAndAdminViewsNotificationInGmail" priority="4">
@@ -3174,20 +3236,20 @@
 		<var name="siteName2" value="Open Site2 Name" />
 		<var name="threadBody" value="MB Category Thread Message Body" />
 		<var name="threadSubject" value="MB Category Thread Message Subject" />
-		<var name="userEmailAddress" property-value="email.address.2" />
+		<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
 		<var name="userFirstName" value="Social01" />
 		<var name="userLastName" value="User01" />
 		<var name="userMiddleName" value="Office01" />
 		<var name="userName" value="Social01 Office01 User01" />
 		<var name="userScreenName" value="socialoffice01" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Server Administration" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Server Administration" />
 		</execute>
 
 		<execute macro="ServerAdministration#configureMailServerSettings">
-			<var name="userName" property-value="email.address.1" />
-			<var name="userPassword" property-value="email.password.1" />
+			<var method="TestPropsUtil#get('email.address.1')" name="userName" />
+			<var method="TestPropsUtil#get('email.password.1')" name="userPassword" />
 		</execute>
 
 		<execute macro="SOUser#addUserWithSORole">
@@ -3209,7 +3271,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName2}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3218,7 +3280,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName2}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3230,6 +3292,7 @@
 		<execute macro="MessageboardsThread#addPG">
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
+			<var name="userName" value="${userName}" />
 		</execute>
 
 		<execute macro="User#logoutAndLoginPG">
@@ -3237,7 +3300,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName2}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3246,12 +3309,13 @@
 			<var name="siteName" value="${siteName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName2}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteName" value="${siteName2}" />
@@ -3268,8 +3332,8 @@
 		<execute function="Pause" locator1="30000" />
 
 		<execute macro="Gmail#login">
-			<var name="userEmailAddress" property-value="email.address.2" />
-			<var name="userPassword" property-value="email.password.2" />
+			<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
+			<var method="TestPropsUtil#get('email.password.2')" name="userPassword" />
 		</execute>
 
 		<execute macro="Gmail#gotoHtmlMode" />
@@ -3285,7 +3349,7 @@
 		</execute>
 
 		<execute macro="Gmail#tearDown">
-			<var name="userEmailAddress" property-value="email.address.2" />
+			<var method="TestPropsUtil#get('email.address.2')" name="userEmailAddress" />
 			<var name="userPassword" value="email.password.2" />
 		</execute>
 
@@ -3317,7 +3381,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3326,7 +3390,7 @@
 			<var name="categoryName" value="${categoryName1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3340,7 +3404,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3349,7 +3413,7 @@
 			<var name="categoryName" value="${categoryName2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3363,7 +3427,7 @@
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3378,21 +3442,24 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName1}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody1}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject1}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3401,7 +3468,7 @@
 		<execute function="AssertTextNotPresent" value1="${threadSubject2}" />
 	</command>
 
-	<command known-issues="LPS-25584" name="ViewMBCategoryThreadAsGuest" priority="4">
+	<command name="ViewMBCategoryThreadAsGuest" priority="4">
 		<var name="categoryName" value="MB Category Name" />
 		<var name="postCount" value="1" />
 		<var name="threadBody1" value="MB Category Thread 1 Message Body" />
@@ -3425,7 +3492,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3434,7 +3501,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3448,7 +3515,7 @@
 			<var name="threadSubject" value="${threadSubject1}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3462,7 +3529,7 @@
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3481,21 +3548,24 @@
 			<var name="userLoginFullName" value="${userName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
+			<var name="postCount" value="${postCount}" />
 			<var name="siteName" value="${siteName}" />
 			<var name="threadBody" value="${threadBody1}" />
+			<var name="threadCount" value="${threadCount}" />
 			<var name="threadSubject" value="${threadSubject1}" />
 			<var name="userName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3515,7 +3585,7 @@
 		<var name="threadBody" value="MB Thread Message Body" />
 		<var name="threadSubject" value="MB Thread Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3529,7 +3599,7 @@
 			<var name="userName" value="Test Test" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3540,7 +3610,7 @@
 			<var name="subCategoryName" value="${subCategoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3550,7 +3620,7 @@
 			<var name="userName" value="Test Test" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3559,7 +3629,7 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3588,7 +3658,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3607,26 +3677,26 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#PERMISSIONS_BUTTON" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#RSS_LINK" value1="RSS" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#SUBSCRIBE_LINK" value1="Subscribe" />
+		<execute function="AssertElementNotPresent" locator1="Button#PERMISSIONS" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#RSS_LINK" value1="RSS" />
+		<execute function="AssertTextEquals" locator1="MessageBoards#SUBSCRIBE_LINK" value1="Subscribe" />
 
 		<var name="key_categoryName" value="${categoryName}" />
 
-		<execute function="AssertClick" locator1="PGMessageboards#CATEGORY_TABLE_ACTIONS" value1="Actions" />
+		<execute function="AssertClick" locator1="MessageBoards#CATEGORY_TABLE_ACTIONS" value1="Actions" />
 
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_MENULIST_SUBSCRIBE" value1="Subscribe" />
-		<execute function="AssertTextEquals" locator1="PGMessageboards#CATEGORY_MENULIST_RSS" value1="RSS (Opens New Window)" />
+		<execute function="AssertTextEquals" locator1="MenuItem#SUBSCRIBE" value1="Subscribe" />
+		<execute function="AssertTextEquals" locator1="MenuItem#RSS" value1="RSS (Opens New Window)" />
 
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#CATEGORY_MENULIST_EDIT" />
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#CATEGORY_MENULIST_MOVE" />
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#CATEGORY_MENULIST_PERMISSIONS" />
-		<execute function="AssertElementNotPresent" locator1="PGMessageboards#CATEGORY_MENULIST_RECYCLE_BIN" />
+		<execute function="AssertElementNotPresent" locator1="MenuItem#EDIT" />
+		<execute function="AssertElementNotPresent" locator1="MenuItem#MOVE" />
+		<execute function="AssertElementNotPresent" locator1="MenuItem#PERMISSIONS" />
+		<execute function="AssertElementNotPresent" locator1="MenuItem#MOVE_TO_THE_RECYCLE_BIN" />
 
 		<execute macro="MessageboardsCategory#gotoPG">
 			<var name="categoryName" value="${categoryName}" />
@@ -3637,7 +3707,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3646,28 +3716,29 @@
 			<var name="categoryName" value="${categoryName}" />
 		</execute>
 
-		<execute function="AssertElementNotPresent" locator1="PGMessageboardsCategory#ADD_SUBCATEGORY_BUTTON" />
-		<execute function="AssertElementNotPresent" locator1="PGMessageboardsCategory#PERMISSIONS_BUTTON" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#RSS_LINK" value1="RSS" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#SUBSCRIBE_LINK" value1="Subscribe" />
+		<execute function="AssertElementNotPresent" locator1="MessageBoards#CATEGORIES_ADD_SUBCATEGORY_BUTTON" />
+		<execute function="AssertElementNotPresent" locator1="Button#PERMISSIONS" />
+		<execute function="AssertTextEquals" locator1="Link#RSS" value1="RSS" />
+		<execute function="AssertTextEquals" locator1="Link#SUBSCRIBE" value1="Subscribe" />
 
 		<var name="key_threadSubject" value="${threadSubject}" />
 
-		<execute function="AssertClick" locator1="PGMessageboardsCategory#THREAD_TABLE_ACTIONS" value1="Actions" />
+		<execute function="AssertClick" locator1="MessageBoards#THREAD_TABLE_ACTIONS" />
 
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#THREAD_MENULIST_UNSUBSCRIBE" value1="Unsubscribe" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#THREAD_MENULIST_RSS" value1="RSS (Opens New Window)" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#THREAD_MENULIST_EDIT" value1="Edit" />
-		<execute function="AssertElementNotPresent" locator1="PGMessageboardsCategory#THREAD_MENULIST_MOVE" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#THREAD_MENULIST_PERMISSIONS" value1="Permissions" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsCategory#THREAD_MENULIST_RECYCLE_BIN" value1="Move to the Recycle Bin" />
+		<execute function="AssertTextEquals" locator1="MenuItem#UNSUBSCRIBE" value1="Unsubscribe" />
+		<execute function="AssertTextEquals" locator1="MenuItem#RSS" value1="RSS (Opens New Window)" />
+		<execute function="AssertTextEquals" locator1="MenuItem#EDIT" value1="Edit" />
+		<execute function="AssertElementNotPresent" locator1="MenuItem#MOVE" />
+		<execute function="AssertTextEquals" locator1="MenuItem#PERMISSIONS" value1="Permissions" />
+		<execute function="AssertTextEquals" locator1="MenuItem#MOVE_TO_THE_RECYCLE_BIN" value1="Move to the Recycle Bin" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteMember" value="true" />
@@ -3677,12 +3748,13 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewMyPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteMember" value="true" />
@@ -3692,12 +3764,13 @@
 			<var name="userName" value="${userFullName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="SOForumsCategoryThread#viewRecentPostsPG">
+			<var name="adminName" value="${adminName}" />
 			<var name="categoryName" value="${categoryName}" />
 			<var name="pageName" value="${pageName}" />
 			<var name="siteMember" value="true" />
@@ -3730,7 +3803,7 @@
 			<var name="userScreenName" value="${userScreenName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3748,7 +3821,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3768,7 +3841,7 @@
 			<var name="siteType" value="${siteType}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3783,7 +3856,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3805,7 +3878,7 @@
 			<var name="userLoginFullName" value="${adminName}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3818,19 +3891,19 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute function="AssertClick" locator1="PGMessageboards#NAVIGATION_STATISTICS" value1="Statistics" />
+		<execute function="AssertClick" locator1="MessageBoards#NAVIGATION_STATISTICS" value1="Statistics" />
 
 		<if>
-			<condition function="IsElementPresent" locator1="PGMessageboardsStatistics#GENERAL_DROPDOWN_COLLAPSED" />
+			<condition function="IsElementPresent" locator1="MessageBoardsStatistics#GENERAL_DROPDOWN_COLLAPSED" />
 			<then>
-				<execute function="AssertClick" locator1="PGMessageboardsStatistics#GENERAL_DROPDOWN" value1="General" />
+				<execute function="AssertClick" locator1="MessageBoardsStatistics#GENERAL_DROPDOWN" value1="General" />
 			</then>
 		</if>
 
-		<execute function="AssertTextEquals" locator1="PGMessageboardsStatistics#GENERAL_NUMBER_OF_CATEGORIES" value1="1" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsStatistics#GENERAL_NUMBER_OF_POSTS" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsStatistics#GENERAL_NUMBER_OF_PARTICIPANTS" value1="0" />
-		<execute function="AssertTextEquals" locator1="PGMessageboardsStatistics#INFO_MESSAGE" value1="There are no top posters." />
+		<execute function="AssertTextEquals" locator1="MessageBoardsStatistics#GENERAL_NUMBER_OF_CATEGORIES" value1="1" />
+		<execute function="AssertTextEquals" locator1="MessageBoardsStatistics#GENERAL_NUMBER_OF_POSTS" value1="0" />
+		<execute function="AssertTextEquals" locator1="MessageBoardsStatistics#GENERAL_NUMBER_OF_PARTICIPANTS" value1="0" />
+		<execute function="AssertTextEquals" locator1="Message#INFO" value1="There are no top posters." />
 	</command>
 
 	<command name="ViewMessageBoardsThreadStatistics" priority="3">
@@ -3839,14 +3912,14 @@
 		<var name="threadSubject" value="MB Thread1 Message Subject" />
 		<var name="threadSubject2" value="MB Thread2 Message Subject" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="MessageboardsThread#viewStatisticsPostsCountDefaultPG" />
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3856,7 +3929,7 @@
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3866,7 +3939,7 @@
 			<var name="userName" value="Test Test" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3876,7 +3949,7 @@
 			<var name="threadSubject" value="${threadSubject2}" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>
@@ -3886,7 +3959,7 @@
 			<var name="userName" value="Test Test" />
 		</execute>
 
-		<execute macro="Page#gotoPG">
+		<execute macro="Navigator#gotoPage">
 			<var name="siteName" value="${siteName}" />
 			<var name="siteURL" value="true" />
 		</execute>

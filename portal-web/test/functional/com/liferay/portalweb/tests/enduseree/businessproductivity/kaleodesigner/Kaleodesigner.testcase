@@ -1,27 +1,38 @@
 <definition component-name="portal-business-productivity-ee">
 	<property name="portlet.plugins.includes" value="kaleo-designer-portlet,kaleo-forms-portlet" />
 	<property name="testray.main.component.name" value="Kaleo Designer" />
-	<property name="web.plugins.includes" value="kaleo-web" />
 
 	<set-up>
+		<execute macro="TestCase#setUpPortalInstance" />
+
 		<execute macro="User#firstLoginPG" />
 	</set-up>
 
 	<tear-down>
-		<execute macro="Workflow#tearDownSpecificWorkflowDefinition">
-			<var name="workflowDefinitionTitle" value="Edited Workflow Definition" />
-		</execute>
+		<var method="TestPropsUtil#get('test.portal.instance')" name="testPortalInstance" />
 
-		<execute macro="Workflow#tearDownWorkflowDefinitionsViaWorkflowCP" />
-		<execute macro="Workflow#tearDownWorkflowDefinitionDraftsViaKDCP" />
+		<if>
+			<equals arg1="${testPortalInstance}" arg2="true" />
+			<then>
+				<execute macro="PortalInstances#tearDownCP" />
+			</then>
+			<else>
+				<execute macro="Workflow#tearDownSpecificWorkflowDefinition">
+					<var name="workflowDefinitionTitle" value="Edited Workflow Definition" />
+				</execute>
+
+				<execute macro="Workflow#tearDownWorkflowDefinitionsViaWorkflowCP" />
+				<execute macro="Workflow#tearDownWorkflowDefinitionDraftsViaKDCP" />
+			</else>
+		</if>
 	</tear-down>
 
-	<command name="AddConditionNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddConditionNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Condition" />
 		<var name="nodeType" value="condition" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -45,12 +56,12 @@
 		</execute>
 	</command>
 
-	<command name="AddEndNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddEndNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="TestEndNode" />
 		<var name="nodeType" value="end" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -74,12 +85,12 @@
 		</execute>
 	</command>
 
-	<command name="AddForkNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddForkNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Fork" />
 		<var name="nodeType" value="fork" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -103,12 +114,12 @@
 		</execute>
 	</command>
 
-	<command name="AddJoinNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddJoinNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Join" />
 		<var name="nodeType" value="join" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -132,12 +143,12 @@
 		</execute>
 	</command>
 
-	<command name="AddJoinXORNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddJoinXORNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Join XOR" />
 		<var name="nodeType" value="join-xor" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -161,9 +172,9 @@
 		</execute>
 	</command>
 
-	<command name="AddJoinXORWorkflowDefinitionViaViewTab" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="AddJoinXORWorkflowDefinitionViaViewTab" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -248,12 +259,12 @@
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="AddNewWorkflowDefinitionViaViewTab" priority="5">
+	<command name="AddNewWorkflowDefinitionViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Task" />
 		<var name="nodeType" value="task" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -303,8 +314,8 @@
 
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaWorkflowCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
@@ -332,12 +343,12 @@
 		</execute>
 	</command>
 
-	<command name="AddStartNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddStartNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="TestStartNode" />
 		<var name="nodeType" value="start" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -365,12 +376,12 @@
 		</execute>
 	</command>
 
-	<command name="AddStateNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddStateNodeEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="State" />
 		<var name="nodeType" value="state" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -398,14 +409,14 @@
 		</execute>
 	</command>
 
-	<command name="AddTaskNodeEditNameAndDesciptionAndRecipientsAndDeleteViaViewTab" priority="5">
+	<command name="AddTaskNodeEditNameAndDesciptionAndRecipientsAndDeleteViaViewTab" priority="4">
 		<description message="This is a use case for LPS-53992." />
 
 		<var name="nodeNodeLabel" value="Task" />
 		<var name="nodeType" value="task" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -451,12 +462,12 @@
 		</execute>
 	</command>
 
-	<command name="AddTaskNodeViaSourceTabAndEditNameAndDesciptionAndDeleteViaViewTab" priority="5">
+	<command name="AddTaskNodeViaSourceTabAndEditNameAndDesciptionAndDeleteViaViewTab" priority="4">
 		<var name="nodeNodeLabel" value="Task" />
 		<var name="nodeType" value="task" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -490,8 +501,8 @@
 	</command>
 
 	<command name="DeleteConnectors" priority="4">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -561,8 +572,8 @@
 
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaKDCP">
@@ -590,9 +601,9 @@
 		</execute>
 	</command>
 
-	<command name="DeleteWorkflowDefinitionDraftViaKDCP" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="DeleteWorkflowDefinitionDraftViaKDCP" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -601,8 +612,8 @@
 
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#viewTableDefinitionDraftViaKDCP">
@@ -614,9 +625,9 @@
 		<execute macro="KaleoDesigner#viewNoWorkflowDefinitionsViaKDCP" />
 	</command>
 
-	<command name="EditSingleApproverDefinitionDeleteTaskNode" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="EditSingleApproverDefinitionDeleteTaskNode" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
@@ -637,8 +648,8 @@
 
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaWorkflowCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="Workflow#viewDefinition">
@@ -656,9 +667,9 @@
 		</execute>
 	</command>
 
-	<command name="PublishDefaultWorkflowDefinition" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishDefaultWorkflowDefinition" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -668,11 +679,11 @@
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishFromSourceTabAndViewNameChange" priority="5">
+	<command name="PublishFromSourceTabAndViewNameChange" priority="4">
 		<description message="This is a use case for LPS-43214 and LPS-50269." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -686,13 +697,13 @@
 
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaWorkflowCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<var name="key_workflowDefinitionName" value="NAME EDIT" />
 
-		<execute function="AssertTextEquals" locator1="CPPortalWorkflowconfiguration#DEFINITION_TABLE_NAME" value1="NAME EDIT" />
+		<execute function="AssertTextEquals" locator1="WorkflowDefinition#DEFINITION_TABLE_NAME" value1="NAME EDIT" />
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
 			<var name="workflowDefinitionTitle" value="Test Definition" />
@@ -706,9 +717,9 @@
 		</execute>
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithConnectorPointingToStartNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithConnectorPointingToStartNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -753,9 +764,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithInvalidConditionNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithInvalidConditionNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -799,7 +810,7 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command known-issues="LIFERAYQA-11686" name="PublishWorkflowDefinitionWithInvalidConditionNodeSettingsAndViewErrorMessage" priority="5">
+	<command name="PublishWorkflowDefinitionWithInvalidConditionNodeSettingsAndViewErrorMessage" priority="4">
 		<var name="nodeScript" >
 <![CDATA[
 	import com.liferay.portal.kernel.util.GetterUtil;${line.separator}
@@ -838,8 +849,8 @@
 ]]>
 		</var>
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -887,9 +898,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithInvalidForkNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithInvalidForkNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -933,9 +944,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithInvalidJoinNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithInvalidJoinNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -979,9 +990,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithInvalidJoinXORNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithInvalidJoinXORNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -1025,9 +1036,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithMultipleStartNodesAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithMultipleStartNodesAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -1044,9 +1055,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithNoConnectorsAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithNoConnectorsAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -1060,9 +1071,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithNoEndNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithNoEndNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -1080,9 +1091,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="PublishWorkflowDefinitionWithNoStartNodeAndViewErrorMessage" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+	<command name="PublishWorkflowDefinitionWithNoStartNodeAndViewErrorMessage" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">
@@ -1100,9 +1111,9 @@
 		<execute macro="KaleoDesigner#publishInvalidWorkflowDefinitionViaWorkflowCP" />
 	</command>
 
-	<command name="RedoDraftDefinition" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="RedoDraftDefinition" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1227,9 +1238,9 @@
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 	</command>
 
-	<command name="SaveInvalidWorkflowDefinitionAsDraft" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="SaveInvalidWorkflowDefinitionAsDraft" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1247,9 +1258,9 @@
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 	</command>
 
-	<command name="UndoDraftDefinition" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="UndoDraftDefinition" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1337,8 +1348,8 @@
 			<var name="connectorLabel" value="Complete" />
 		</execute>
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaKDCP">
@@ -1379,9 +1390,9 @@
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 	</command>
 
-	<command name="ViewAndPublishWorkflowDefinitionDraftViaKDCP" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="ViewAndPublishWorkflowDefinitionDraftViaKDCP" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1390,16 +1401,16 @@
 
 		<execute macro="KaleoDesigner#saveAsDraftWorkflowDefinitionViaKDCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#viewTableDefinitionDraftViaKDCP">
 			<var name="workflowDefinitionTitle" value="New Workflow Definition" />
 		</execute>
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaKDCP">
@@ -1408,8 +1419,8 @@
 
 		<execute macro="KaleoDesigner#publishWorkflowDefinitionViaKDCP" />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#viewTableDefinitionPublishedViaKDCP">
@@ -1417,9 +1428,9 @@
 		</execute>
 	</command>
 
-	<command name="ViewAssignmentsForTaskNodeKDCP" priority="5">
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+	<command name="ViewAssignmentsForTaskNodeKDCP" priority="4">
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1438,11 +1449,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewDefinitionTemplateCDATARemainsWhenViewingSourceTab" priority="5">
+	<command name="ViewDefinitionTemplateCDATARemainsWhenViewingSourceTab" priority="4">
 		<description message="This is a use case for LPS-45514." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="Workflow#uploadDefinition">
@@ -1468,11 +1479,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewInvalidSourceXMLRemainsAfterTabSwitch" priority="5">
+	<command name="ViewInvalidSourceXMLRemainsAfterTabSwitch" priority="4">
 		<description message="This is a use case for LPS-48590." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
@@ -1493,11 +1504,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewNewUploadedDefinitionDoesNotContainDataFromDeletedDefinition" priority="5">
+	<command name="ViewNewUploadedDefinitionDoesNotContainDataFromDeletedDefinition" priority="4">
 		<description message="This is a use case for LPS-45676." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="Workflow#uploadDefinition">
@@ -1522,8 +1533,8 @@
 			<var name="line" value="15" />
 		</execute>
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="Workflow#deactivateAddedWorkflowDefinition" />
@@ -1552,11 +1563,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewNodeNotificationRecipientPersistsAfterSwitchingTabs" priority="5">
+	<command name="ViewNodeNotificationRecipientPersistsAfterSwitchingTabs" priority="4">
 		<description message="This is a use case for LPS-46657." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
@@ -1590,11 +1601,11 @@
 		</execute>
 	</command>
 
-	<command name="ViewSingleApproverUserNotificationOption" priority="5">
+	<command name="ViewSingleApproverUserNotificationOption" priority="4">
 		<description message="This is a use case for LPS-46605." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#editWorkflowDefinitionViaWorkflowCP">
@@ -1611,11 +1622,13 @@
 		</execute>
 	</command>
 
-	<command name="ViewWorkflowDefinitionButtonsViaKaleoFormsAdmin" priority="5">
+	<command name="ViewWorkflowDefinitionButtonsViaKaleoFormsAdmin" priority="4">
 		<description message="This is a use case for LPS-47352 and LPS-48912." />
 
-		<execute macro="Page#gotoContentCP">
-			<var name="portletName" value="Kaleo Forms Admin" />
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Kaleo Forms Admin" />
 		</execute>
 
 		<execute macro="KaleoFormsAdmin#addProcess" />
@@ -1647,11 +1660,11 @@
 		<execute macro="KaleoFormsAdmin#viewNoUnpublishedWorkflowDefinitions" />
 	</command>
 
-	<command name="ViewWorkflowDefinitionButtonsViaKDCP" priority="5">
+	<command name="ViewWorkflowDefinitionButtonsViaKDCP" priority="4">
 		<description message="This is a use case for LPS-47352 and LPS-48912." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Kaleo Designer" />
+		<execute macro="ProductMenu#gotoControlPanelApps">
+			<var name="portlet" value="Kaleo Designer" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaKDCP">
@@ -1665,11 +1678,11 @@
 		<execute macro="KaleoDesigner#viewNoWorkflowDefinitionsViaKDCP" />
 	</command>
 
-	<command name="ViewWorkflowDefinitionButtonsViaWorkflowCP" priority="5">
+	<command name="ViewWorkflowDefinitionButtonsViaWorkflowCP" priority="4">
 		<description message="This is a use case for LPS-47352 and LPS-48912." />
 
-		<execute macro="Page#gotoCP">
-			<var name="portletName" value="Workflow" />
+		<execute macro="ProductMenu#gotoControlPanelConfiguration">
+			<var name="portlet" value="Workflow Definition" />
 		</execute>
 
 		<execute macro="KaleoDesigner#addNewDefinitionViaWorkflowCP">

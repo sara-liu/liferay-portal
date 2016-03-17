@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.portal.kernel.xml.UnsecureSAXReaderUtil;
 import com.liferay.portal.util.HtmlImpl;
 import com.liferay.portal.util.PropsImpl;
 import com.liferay.portal.xml.SAXReaderImpl;
@@ -56,9 +57,14 @@ public class SPIConfigurationTest {
 
 		secureSAXReader.setSecure(true);
 
-		saxReaderUtil.setSecureSAXReader(secureSAXReader);
+		saxReaderUtil.setSAXReader(secureSAXReader);
 
-		saxReaderUtil.setUnsecureSAXReader(new SAXReaderImpl());
+		UnsecureSAXReaderUtil unsecureSAXReaderUtil =
+			new UnsecureSAXReaderUtil();
+
+		SAXReaderImpl unsecureSAXReader = new SAXReaderImpl();
+
+		unsecureSAXReaderUtil.setSAXReader(unsecureSAXReader);
 	}
 
 	@Test
@@ -113,7 +119,7 @@ public class SPIConfigurationTest {
 
 		Assert.assertEquals(sb.toString(), spiConfiguration.toString());
 
-		sb = new StringBundler(13);
+		sb = new StringBundler(14);
 
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		sb.append("<SPIConfiguration><id>spiId</id>");
